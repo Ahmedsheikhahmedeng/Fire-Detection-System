@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Flame, Satellite, CheckCircle, AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import CreativeButton from "../CreativeButton/CreativeButton";
 import axios from "axios";
 import { API_BASE_URL } from "../../services/api";
@@ -7,6 +8,7 @@ import "./AnalizHeader.css";
 
 export default function AnalizHeader({ isActive, setIsActive }) {
     const [isOnline, setIsOnline] = useState(true);
+    const navigate = useNavigate();
 
     // Arka plan sisteminin canlı olup olmadığını kontrol et (Gerçek Veri Temsili)
     useEffect(() => {
@@ -42,24 +44,29 @@ export default function AnalizHeader({ isActive, setIsActive }) {
         >
             {/* LEFT SIDE: Logo */}
             <div className="analiz-header-brand">
-                <div className="analiz-header-brand-inner">
+                <button
+                    type="button"
+                    className="analiz-header-brand-inner analiz-header-brand-button"
+                    onClick={() => navigate("/")}
+                    aria-label="Ana sayfaya git"
+                >
                     <div
                         className="analiz-header-logo"
                         style={{ background: "rgba(120,1,21,0.32)", border: "1px solid rgba(120,1,21,0.78)" }}
                     >
-                        <Flame size={16} color="#f7c1b6" />
+                        <Flame className="analiz-header-logo-icon" size={16} color="#f7c1b6" />
                     </div>
                     <div className="analiz-header-title">
                         <div className="analiz-header-wordmark">
-                            <span style={{ color: "#f7efe4", fontWeight: "bold" }}>FIRE</span>
-                            <span style={{ color: "#f7b638", fontWeight: "bold" }}>WATCH</span>
+                            <span className="analiz-header-brand-fire" style={{ color: "#f7efe4", fontWeight: "bold" }}>FIRE</span>
+                            <span className="analiz-header-brand-watch" style={{ color: "#f7b638", fontWeight: "bold" }}>WATCH</span>
                             <span className="analiz-header-version" style={{ background: "rgba(120,1,21,0.28)", color: "#f7c1b6", border: "1px solid rgba(120,1,21,0.58)" }}>
                                 v1.0.01 
                             </span>
                         </div>
                         <div className="analiz-header-subtitle" style={{ color: "#cbbba4" }}>ORMAN YANGIN ERKEN TESPİT SİSTEMİ</div>
                     </div>
-                </div>
+                </button>
             </div>
 
             {/* RIGHT SIDE: Stats & Menu Button */}

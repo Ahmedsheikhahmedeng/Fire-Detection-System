@@ -96,7 +96,7 @@ const Nav = ({ setBackground }) => {
             </div>
             <div className="footer-nav-col">
                 <h3>Risk Analizi</h3>
-                <TextDisperse setBackground={setBackground} href="/izleme">Canlı İzleme</TextDisperse>
+                <TextDisperse setBackground={setBackground} href="/analiz">Canlı İzleme</TextDisperse>
                 <TextDisperse setBackground={setBackground} href="/analiz">Raporlar</TextDisperse>
                 <TextDisperse setBackground={setBackground} href="/analiz">İstatistikler</TextDisperse>
             </div>

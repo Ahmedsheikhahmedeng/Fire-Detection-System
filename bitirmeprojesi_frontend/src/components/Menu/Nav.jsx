@@ -9,7 +9,7 @@ const links = [
   { title: "Farkındalık", href: "/#awareness" },
   { title: "Uyarı Merkezi", href: "/#alerts" },
   { title: "Nasıl Çalışır", href: "/#how" },
-  { title: "Canlı İzleme", href: "/izleme", isHighlight: true },
+  { title: "Canlı İzleme", href: "/analiz", isHighlight: true },
 ];
 
 const externalLinks = [

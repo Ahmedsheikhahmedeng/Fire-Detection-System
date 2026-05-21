@@ -242,7 +242,7 @@ export default function Home() {
                 <div className="parallax-hero-buttons">
                   <CreativeButton
                     className="hero-analiz-btn"
-                    onClick={() => navigate("/izleme")}
+                    onClick={() => navigate("/analiz")}
                   >
                     Canlı İzleme
                   </CreativeButton>

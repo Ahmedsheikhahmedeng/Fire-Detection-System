@@ -1,17 +1,21 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Menu/Header";
 
 import { Toaster } from "react-hot-toast";
 
 const Home = lazy(() => import("./pages/Home/Home"));
-const RiskAnalysisPage = lazy(() => import("./pages/FireDashboard/RiskAnalysisPage"));
+const FireAnalysis = lazy(() => import("./pages/FireAnalysis/FireAnalysis"));
 const MonitoringSection = lazy(() => import("./pages/Monitoring/MonitoringSection"));
 const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function AppContent() {
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location.pathname]);
 
   return (
     <>
@@ -20,7 +24,7 @@ function AppContent() {
         <Suspense fallback={null}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/analiz" element={<RiskAnalysisPage />} />
+            <Route path="/analiz" element={<FireAnalysis />} />
             <Route path="/izleme" element={<MonitoringSection />} />
           </Routes>
         </Suspense>

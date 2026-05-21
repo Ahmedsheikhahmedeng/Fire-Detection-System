@@ -311,8 +311,17 @@ export default function RiskAnalysisPage() {
     };
 
     return (
-        <div className="risk-analysis-page h-screen flex flex-col overflow-hidden"
-            style={{ height: "100vh", display: "flex", flexDirection: "column", overflow: "hidden", background: "#020101", fontFamily: "'Inter', system-ui, sans-serif", color: "#ffffff" }}>
+        <div className="risk-analysis-page flex flex-col"
+            style={{
+                minHeight: "calc(100svh - 56px)",
+                marginTop: 56,
+                display: "flex",
+                flexDirection: "column",
+                overflow: "visible",
+                background: "#020101",
+                fontFamily: "'Inter', system-ui, sans-serif",
+                color: "#ffffff",
+            }}>
             {/* HEADER */}
             <div className="risk-analysis-header shrink-0 flex items-center justify-between px-5 py-3"
                 style={{ background: "#0a0203", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
@@ -336,7 +345,7 @@ export default function RiskAnalysisPage() {
 
             {/* CONTENT */}
             <div className="risk-analysis-content flex-1 min-h-0 px-3 py-2 flex flex-col gap-2"
-                style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", gap: 8, padding: "8px 12px", overflow: "hidden" }}>
+                style={{ flex: "1 1 auto", minHeight: 0, display: "flex", flexDirection: "column", gap: 8, padding: "8px 12px", overflow: "visible" }}>
                 <AnimatePresence>
                     {loading && (
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}

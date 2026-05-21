@@ -24,7 +24,7 @@ export default function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const isAnaliz = location.pathname.includes("/analiz") || location.pathname.includes("/izleme");
+  const isAnaliz = location.pathname.includes("/analiz");
   const isCompactMenu = windowSize.width < 500 || windowSize.height < 680;
   const openMenuWidth = Math.max(
     288,

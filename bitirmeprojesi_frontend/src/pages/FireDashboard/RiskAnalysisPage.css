@@ -1,5 +1,94 @@
 .risk-analysis-page {
   min-width: 0;
+  height: auto !important;
+  overflow: visible !important;
+  scroll-margin-top: 56px;
+}
+
+.risk-analysis-cover {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  min-height: calc(100svh - 56px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+  padding: 48px 18px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(2, 1, 1, 0.32), rgba(2, 1, 1, 0.92)),
+    radial-gradient(circle at 50% 28%, rgba(120, 1, 21, 0.36), transparent 34%),
+    #020101;
+}
+
+.risk-analysis-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(180deg, transparent, #000 22%, #000 74%, transparent);
+}
+
+.risk-analysis-cover-mark,
+.risk-analysis-cover-title,
+.risk-analysis-cover p {
+  position: relative;
+  z-index: 1;
+}
+
+.risk-analysis-cover-mark {
+  display: flex;
+  width: 72px;
+  height: 72px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(120, 1, 21, 0.78);
+  border-radius: 14px;
+  background: rgba(120, 1, 21, 0.28);
+  box-shadow: 0 0 34px rgba(120, 1, 21, 0.34);
+}
+
+.risk-analysis-cover-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #f7efe4;
+  font-size: clamp(2.25rem, 9vw, 6rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.risk-analysis-cover-title span:nth-child(2) {
+  color: #f7b638;
+}
+
+.risk-analysis-cover-title strong {
+  align-self: center;
+  padding: 5px 9px;
+  border: 1px solid rgba(120, 1, 21, 0.58);
+  border-radius: 5px;
+  background: rgba(120, 1, 21, 0.28);
+  color: #f7c1b6;
+  font-size: clamp(0.7rem, 2vw, 1rem);
+  letter-spacing: 1px;
+}
+
+.risk-analysis-cover p {
+  max-width: 760px;
+  margin: 0;
+  color: #cbbba4;
+  font-size: clamp(0.82rem, 2vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .risk-panel,
@@ -246,9 +335,12 @@
 
 @media (max-width: 900px) {
   .risk-analysis-page {
-    height: auto !important;
     min-height: 100svh;
-    overflow: visible !important;
+    margin-top: 56px !important;
+  }
+
+  .risk-analysis-cover {
+    min-height: calc(100svh - 56px);
   }
 
   .risk-analysis-header {

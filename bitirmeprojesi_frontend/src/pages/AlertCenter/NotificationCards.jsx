@@ -12,6 +12,7 @@ const TELEGRAM_BOT_URL = "https://t.me/yanginizle_bot";
 const NotificationCards = () => {
     const containerRef = useRef(null);
     const progressBarRef = useRef(null);
+    const isDev = import.meta.env.DEV;
     const [emailAddress, setEmailAddress] = useState('');
     const [emailStatus, setEmailStatus] = useState({ type: 'idle', message: '' });
     const [isEmailSending, setIsEmailSending] = useState(false);
@@ -265,27 +266,29 @@ const NotificationCards = () => {
                             <h3>E-posta Bildirimi</h3>
                             <p>Detaylı yangın raporlarını ve uyarıları e-posta ile alın.</p>
                             <div className="spacer"></div>
-                            <form className="notification-form" onSubmit={handleEmailSubmit}>
-                                <input
-                                    id="email-address"
-                                    name="emailAddress"
-                                    type="email"
-                                    placeholder="E-posta adresiniz"
-                                    className="ui-input"
-                                    value={emailAddress}
-                                    onChange={(event) => setEmailAddress(event.target.value)}
-                                    disabled={isEmailSending}
-                                    required
-                                />
-                                <button className="btn btn-orange" type="submit" disabled={isEmailSending}>
-                                    {isEmailSending ? 'Gönderiliyor' : 'Test Gönder'}
-                                </button>
-                                {emailStatus.message && (
-                                    <p className={`notification-status ${emailStatus.type}`}>
-                                        {emailStatus.message}
-                                    </p>
-                                )}
-                            </form>
+                            {isDev && (
+                                <form className="notification-form" onSubmit={handleEmailSubmit}>
+                                    <input
+                                        id="email-address"
+                                        name="emailAddress"
+                                        type="email"
+                                        placeholder="E-posta adresiniz"
+                                        className="ui-input"
+                                        value={emailAddress}
+                                        onChange={(event) => setEmailAddress(event.target.value)}
+                                        disabled={isEmailSending}
+                                        required
+                                    />
+                                    <button className="btn btn-orange" type="submit" disabled={isEmailSending}>
+                                        {isEmailSending ? 'Gönderiliyor' : 'Test Gönder'}
+                                    </button>
+                                    {emailStatus.message && (
+                                        <p className={`notification-status ${emailStatus.type}`}>
+                                            {emailStatus.message}
+                                        </p>
+                                    )}
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>

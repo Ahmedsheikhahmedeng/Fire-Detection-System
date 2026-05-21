@@ -23,6 +23,46 @@
   min-width: 0;
 }
 
+.analiz-header-brand-button {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.analiz-header-logo,
+.analiz-header-logo-icon,
+.analiz-header-brand-fire,
+.analiz-header-brand-watch {
+  transition: color 180ms ease, stroke 180ms ease, background 180ms ease, border-color 180ms ease, filter 180ms ease, transform 220ms ease;
+}
+
+.analiz-header-brand-button:hover .analiz-header-logo {
+  background: rgba(212, 43, 63, 0.26) !important;
+  border-color: rgba(212, 43, 63, 0.9) !important;
+  filter: drop-shadow(0 0 10px rgba(212, 43, 63, 0.35));
+}
+
+.analiz-header-brand-button:hover .analiz-header-logo-icon,
+.analiz-header-brand-button:hover .analiz-header-brand-fire,
+.analiz-header-brand-button:hover .analiz-header-brand-watch {
+  color: #d42b3f !important;
+  stroke: #d42b3f !important;
+}
+
+.analiz-header-brand-button:hover .analiz-header-logo-icon {
+  transform: translateX(-5px) scale(1.08);
+}
+
+.analiz-header-brand-button:focus-visible {
+  outline: 2px solid rgba(247, 182, 56, 0.7);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
 .analiz-header-logo {
   width: 32px;
   height: 32px;
