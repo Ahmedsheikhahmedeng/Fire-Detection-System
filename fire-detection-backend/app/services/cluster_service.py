@@ -7,7 +7,11 @@ from sqlalchemy.orm import Session
 from app.core.time_utils import utc_now_naive
 from app.models.fire_cluster import FireCluster
 from app.models.hotspot import Hotspot
-from app.services.cluster_status_service import get_cluster_status_for_last_seen
+from app.services.cluster_status_service import (
+    CLUSTER_STATUS_ACTIVE,
+    CLUSTER_STATUS_MONITORING,
+    get_cluster_status_for_last_seen,
+)
 
 CLUSTER_RADIUS_KM = 5
 CLUSTER_TIME_WINDOW_HOURS = 6
@@ -76,7 +80,7 @@ class ClusterService:
 
         candidates = (
             db.query(FireCluster)
-            .filter(FireCluster.status == "active")
+            .filter(FireCluster.status.in_([CLUSTER_STATUS_ACTIVE, CLUSTER_STATUS_MONITORING]))
             .filter(FireCluster.last_seen_at >= window_start)
             .filter(FireCluster.first_seen_at <= window_end)
             .all()
