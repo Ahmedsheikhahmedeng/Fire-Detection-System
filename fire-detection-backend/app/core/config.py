@@ -5,11 +5,11 @@ class Settings(BaseSettings):
     APP_NAME: str = "Fire Detection API"
     APP_ENV: str = "development"
     APP_VERSION: str = "v3"
-    DB_HOST: str
-    DB_PORT: int
-    DB_NAME: str
-    DB_USER: str
-    DB_PASSWORD: str
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+    DB_NAME: str = "fire_detection"
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = "postgres"
     DATABASE_URL: str = ""
     NASA_API_KEY: str = ""
     OPENWEATHER_API_KEY: str = ""
@@ -68,12 +68,19 @@ class Settings(BaseSettings):
         )
 
     @property
+    def is_production(self) -> bool:
+        return self.APP_ENV.lower() == "production"
+
+    @property
     def allowed_origins(self) -> list[str]:
         configured_origins = [
             origin.strip()
             for origin in self.ALLOWED_ORIGINS.split(",")
             if origin.strip()
         ]
+        if self.is_production:
+            return [origin for origin in configured_origins if origin != "*"]
+
         fallback_origins = [
             self.FRONTEND_URL,
             "http://localhost:5173",
