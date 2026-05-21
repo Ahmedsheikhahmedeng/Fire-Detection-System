@@ -1,0 +1,409 @@
+.risk-analysis-page {
+  min-width: 0;
+}
+
+.risk-panel,
+.risk-stat-card {
+  min-width: 0;
+}
+
+.risk-bottom-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.city-density-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.city-density-body .risk-pie-body {
+  min-height: 0;
+  padding-bottom: 8px !important;
+}
+
+.city-density-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 12px 12px;
+}
+
+.city-density-metric {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.city-density-metric > div {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.city-density-metric span,
+.city-density-metric strong {
+  min-width: 0;
+  overflow: hidden;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.city-density-metric span {
+  flex: 1;
+  color: #7fbc8c;
+  font-size: 10px;
+}
+
+.city-density-metric strong {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.system-summary-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px;
+}
+
+.system-summary-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.system-summary-line strong {
+  color: #d9c6b0;
+  font-weight: 700;
+  text-align: right;
+}
+
+.system-summary-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.system-summary-metric {
+  min-width: 0;
+  padding: 7px 6px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.system-summary-metric span {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 8px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.system-summary-metric strong {
+  display: block;
+  margin-top: 3px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.data-analysis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-analysis-risk-rate {
+  color: #e24b36;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.data-analysis-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-content: start;
+  gap: 6px;
+  min-height: 0;
+  padding: 8px;
+  overflow: visible;
+}
+
+.data-analysis-summary,
+.data-analysis-clusters {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.data-analysis-summary {
+  grid-row: span 2;
+  padding: 8px;
+}
+
+.data-analysis-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.data-analysis-line,
+.data-analysis-status-counts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.data-analysis-line strong {
+  color: #d9c6b0;
+  font-weight: 700;
+}
+
+.data-analysis-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.data-analysis-metric {
+  min-width: 0;
+  padding: 5px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.data-analysis-metric span {
+  display: block;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 8px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.data-analysis-metric strong {
+  display: block;
+  margin-top: 2px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.data-analysis-clusters {
+  padding: 8px;
+}
+
+.data-analysis-clusters {
+  grid-column: 1 / -1;
+}
+
+.data-analysis-empty {
+  display: block;
+  margin-top: 5px;
+  color: #7fbc8c;
+  font-size: 10px;
+}
+
+.data-analysis-status-counts {
+  margin-top: 6px;
+  font-size: 8px;
+}
+
+.data-analysis-cluster-card {
+  margin-top: 5px;
+  padding: 6px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+@media (max-width: 900px) {
+  .risk-analysis-page {
+    height: auto !important;
+    min-height: 100svh;
+    overflow: visible !important;
+  }
+
+  .risk-analysis-header {
+    align-items: flex-start !important;
+    gap: 10px;
+    padding: 12px !important;
+  }
+
+  .risk-analysis-title-wrap {
+    min-width: 0;
+  }
+
+  .risk-analysis-actions {
+    flex: 0 0 auto;
+  }
+
+  .risk-analysis-content {
+    overflow: visible !important;
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  .risk-stat-grid,
+  .risk-chart-grid,
+  .risk-bottom-grid {
+    grid-template-columns: 1fr !important;
+    flex: none !important;
+    min-height: auto !important;
+  }
+
+  .risk-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .risk-stat-card {
+    padding: 12px !important;
+  }
+
+  .risk-panel {
+    min-height: auto;
+  }
+
+  .risk-chart-panel {
+    min-height: 300px;
+  }
+
+  .risk-chart-body {
+    height: 240px !important;
+    flex: none !important;
+  }
+
+  .risk-pie-body {
+    min-height: 250px;
+  }
+
+  .data-analysis-body {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .data-analysis-summary,
+  .data-analysis-clusters {
+    grid-column: auto;
+  }
+
+  .data-analysis-summary {
+    grid-row: auto;
+  }
+
+}
+
+@media (max-width: 560px) {
+  .risk-analysis-header {
+    padding: 10px 8px !important;
+  }
+
+  .risk-analysis-title-wrap {
+    gap: 8px !important;
+  }
+
+  .risk-analysis-title-wrap > div:first-child {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .risk-analysis-title-wrap span {
+    max-width: 100%;
+  }
+
+  .risk-analysis-content {
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+
+  .risk-stat-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .risk-stat-card {
+    min-height: 96px;
+  }
+
+  .risk-stat-card [style*="font-size: 26px"] {
+    font-size: 22px !important;
+  }
+
+  .risk-chart-panel {
+    min-height: 280px;
+  }
+
+  .risk-chart-body {
+    height: 220px !important;
+  }
+
+  .risk-pie-body {
+    align-items: stretch !important;
+    flex-direction: column;
+    min-height: auto;
+    gap: 10px !important;
+  }
+
+  .risk-pie-body .recharts-responsive-container {
+    width: 100% !important;
+    height: 190px !important;
+    flex: 0 0 auto;
+  }
+
+  .risk-pie-body > div:last-child {
+    gap: 8px !important;
+  }
+
+  .risk-pie-body > div:last-child > div {
+    padding-right: 0 !important;
+  }
+
+  .city-density-metrics {
+    grid-template-columns: 1fr;
+    padding-inline: 10px;
+  }
+
+  .risk-bottom-grid .risk-panel {
+    max-height: none;
+  }
+
+  .data-analysis-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 380px) {
+  .risk-chart-body {
+    height: 205px !important;
+  }
+
+  .risk-pie-body .recharts-responsive-container {
+    height: 170px !important;
+  }
+}

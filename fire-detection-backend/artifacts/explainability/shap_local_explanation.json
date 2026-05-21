@@ -1,0 +1,41 @@
+{
+  "method": "shap",
+  "base_value": 0.5005,
+  "top_features": [
+    {
+      "name": "temp_avg_24h",
+      "impact": 0.1688,
+      "abs_impact": 0.1688,
+      "value": 15.13,
+      "direction": "increase"
+    },
+    {
+      "name": "wind_effect",
+      "impact": 0.0689,
+      "abs_impact": 0.0689,
+      "value": 2.7426,
+      "direction": "increase"
+    },
+    {
+      "name": "wind_speed",
+      "impact": 0.0538,
+      "abs_impact": 0.0538,
+      "value": 6.53,
+      "direction": "increase"
+    },
+    {
+      "name": "heat_index",
+      "impact": 0.0419,
+      "abs_impact": 0.0419,
+      "value": 20.93,
+      "direction": "increase"
+    },
+    {
+      "name": "temperature",
+      "impact": 0.0393,
+      "abs_impact": 0.0393,
+      "value": 15.13,
+      "direction": "increase"
+    }
+  ]
+}

@@ -1,0 +1,716 @@
+/* ─────────── FireMap Wrapper ─────────── */
+.firemap-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(120, 1, 21, 0.72);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.58), 0 0 0 1px rgba(247, 182, 56, 0.06);
+  --marker-outer-stroke: rgba(255, 248, 238, 0.88);
+  --marker-inner-stroke: rgba(255, 248, 238, 0.9);
+  --marker-ring-fill-mix: 18%;
+  --marker-ring-shadow-mix: 38%;
+  --marker-shadow-backdrop: rgba(0, 0, 0, 0.72);
+  --marker-dot-size: 9px;
+  --map-card-bg: linear-gradient(180deg, rgba(28, 2, 8, 0.96), rgba(7, 2, 4, 0.96));
+  --map-card-border: rgba(120, 1, 21, 0.72);
+  --map-card-shadow: 0 14px 34px rgba(0, 0, 0, 0.48);
+  --map-card-title: #f7b638;
+  --map-card-text: #f7efe4;
+  --map-card-muted: #cbbba4;
+  --map-card-divider: rgba(120, 1, 21, 0.34);
+  --map-control-bg: linear-gradient(180deg, rgba(30, 2, 8, 0.96), rgba(8, 3, 5, 0.96));
+  --map-control-border: rgba(120, 1, 21, 0.72);
+  --map-control-text: #f7efe4;
+}
+
+.firemap-wrapper--morning {
+  --marker-outer-stroke: rgba(18, 36, 24, 0.86);
+  --marker-inner-stroke: rgba(255, 255, 255, 0.96);
+  --marker-ring-fill-mix: 28%;
+  --marker-ring-shadow-mix: 52%;
+  --marker-shadow-backdrop: rgba(16, 28, 20, 0.5);
+  --marker-dot-size: 10px;
+  --map-card-bg: linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(248, 242, 232, 0.94));
+  --map-card-border: rgba(86, 103, 78, 0.38);
+  --map-card-shadow: 0 14px 30px rgba(44, 54, 43, 0.22);
+  --map-card-title: #6e3300;
+  --map-card-text: #160b06;
+  --map-card-muted: #3e3025;
+  --map-card-divider: rgba(86, 103, 78, 0.2);
+  --map-control-bg: linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(245, 236, 224, 0.94));
+  --map-control-border: rgba(86, 103, 78, 0.4);
+  --map-control-text: #24160f;
+  --map-control-hover-bg: linear-gradient(180deg, rgba(255, 248, 235, 0.98), rgba(232, 219, 199, 0.96));
+  --map-control-hover-border: rgba(133, 103, 48, 0.58);
+  --map-control-hover-text: #24160f;
+  --map-control-hover-shadow: 0 10px 24px rgba(86, 103, 78, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.56);
+}
+
+.firemap-wrapper--morning .fire-detail-card {
+  font-weight: 650;
+}
+
+.firemap-wrapper--morning .fire-detail-card .text-base,
+.firemap-wrapper--morning .fire-detail-card .text-xs,
+.firemap-wrapper--morning .fire-detail-card .text-\[10px\],
+.firemap-wrapper--morning .fire-detail-card .text-\[11px\] {
+  font-weight: 750;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.firemap-wrapper--morning .fire-detail-value {
+  font-weight: 900 !important;
+  filter: saturate(1.18) contrast(1.18);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.firemap-wrapper--morning .fire-detail-card .font-semibold {
+  font-weight: 900;
+}
+
+.firemap-wrapper--morning .fire-detail-card .inline-flex.rounded-full {
+  background: rgba(44, 80, 49, 0.14) !important;
+  border-color: rgba(38, 84, 45, 0.72) !important;
+}
+
+.firemap-wrapper--morning .fire-detail-card .inline-flex.rounded-full span {
+  color: #16351d !important;
+  font-weight: 900 !important;
+}
+
+.firemap-wrapper--morning .fire-detail-ml-badge {
+  color: #17371f !important;
+  background: rgba(44, 80, 49, 0.16) !important;
+  border-color: rgba(38, 84, 45, 0.72) !important;
+  font-weight: 900 !important;
+}
+
+.firemap-wrapper--night {
+  --marker-outer-stroke: rgba(255, 248, 238, 0.88);
+  --marker-inner-stroke: rgba(255, 248, 238, 0.9);
+}
+
+.firemap-container {
+  width: 100%;
+  height: 100%;
+  background: #070806;
+}
+
+.firemap-container.leaflet-container {
+  min-height: inherit;
+  z-index: 0;
+}
+
+.firemap-wrapper--night .firemap-container .leaflet-tile-pane {
+  filter: saturate(0.92) contrast(1.02) brightness(0.9);
+}
+
+.firemap-wrapper--morning .firemap-container .leaflet-tile-pane {
+  filter: saturate(0.96) contrast(0.96) brightness(0.98);
+}
+
+.map-gesture-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.48);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.map-gesture-hint--visible {
+  opacity: 1;
+}
+
+.map-theme-toggle {
+  position: absolute;
+  top: 52px;
+  left: 12px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 11px;
+  border-radius: 20px;
+  border: 1px solid var(--map-control-border);
+  background: var(--map-control-bg);
+  color: var(--map-control-text);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+.map-theme-toggle svg {
+  stroke: currentColor;
+}
+
+.map-theme-toggle:hover {
+  border-color: rgba(247, 182, 56, 0.34);
+  background: linear-gradient(180deg, rgba(48, 3, 12, 0.98), rgba(10, 3, 5, 0.98));
+}
+
+.firemap-wrapper--morning .map-theme-toggle,
+.firemap-wrapper--morning .map-theme-toggle:hover,
+.firemap-wrapper--morning .map-theme-toggle:focus-visible,
+.firemap-wrapper--morning .map-theme-toggle:active {
+  border-color: var(--map-control-hover-border) !important;
+  background: var(--map-control-hover-bg) !important;
+  color: var(--map-control-hover-text) !important;
+  box-shadow: var(--map-control-hover-shadow) !important;
+}
+
+/* ─────────── WebSocket Status ─────────── */
+.ws-indicator {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.ws-connected {
+  background: rgba(6, 22, 12, 0.92);
+  border: 1px solid rgba(92, 166, 109, 0.5);
+  color: #cce8c9;
+}
+
+.ws-connecting {
+  background: rgba(35, 17, 4, 0.9);
+  border: 1px solid rgba(247, 182, 56, 0.38);
+  color: #f3d39b;
+}
+
+.ws-disconnected {
+  background: rgba(226, 75, 54, 0.16);
+  border: 1px solid rgba(226, 75, 54, 0.52);
+  color: #f7c1b6;
+}
+
+.ws-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.ws-connected .ws-dot { background: #7fbc8c; }
+.ws-connecting .ws-dot { background: #f7b638; }
+.ws-disconnected .ws-dot { background: #e24b36; }
+
+@keyframes ws-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
+}
+
+/* ─────────── Map Legend ─────────── */
+.map-legend-toggle {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1001;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--map-control-border);
+  background: var(--map-control-bg);
+  color: var(--map-control-text);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+.map-legend-toggle svg {
+  stroke: currentColor;
+}
+
+.map-legend-toggle:hover {
+  border-color: rgba(247, 182, 56, 0.34);
+  background: linear-gradient(180deg, rgba(48, 3, 12, 0.98), rgba(10, 3, 5, 0.98));
+}
+
+.firemap-wrapper--morning .map-legend-toggle,
+.firemap-wrapper--morning .map-legend-toggle:hover,
+.firemap-wrapper--morning .map-legend-toggle:focus-visible,
+.firemap-wrapper--morning .map-legend-toggle:active {
+  border-color: var(--map-control-hover-border) !important;
+  background: var(--map-control-hover-bg) !important;
+  color: var(--map-control-hover-text) !important;
+  box-shadow: var(--map-control-hover-shadow) !important;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 50px;
+  left: 16px;
+  z-index: 1000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--map-card-bg);
+  border: 1px solid var(--map-card-border);
+  box-shadow: var(--map-card-shadow);
+}
+
+.legend-title {
+  font-size: 9px;
+  color: var(--map-card-title);
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--map-card-text);
+  margin-bottom: 4px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-red { background: #e24b36; box-shadow: 0 0 8px rgba(226, 75, 54, 0.55); }
+.dot-orange { background: #d56f3f; box-shadow: 0 0 8px rgba(213, 111, 63, 0.5); }
+.dot-blue { background: #f7b638; box-shadow: 0 0 8px rgba(247, 182, 56, 0.36); }
+.dot-green { background: #7fbc8c; box-shadow: 0 0 8px rgba(127, 188, 140, 0.48); }
+.dot-gray  { background: #8e9385; box-shadow: 0 0 8px rgba(142, 147, 133, 0.42); }
+
+/* ─────────── ML Status Badge ─────────── */
+.ml-status-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: var(--map-control-text);
+  background: var(--map-control-bg);
+  border: 1px solid var(--map-control-border);
+  pointer-events: none;
+  max-width: calc(100% - 24px);
+}
+
+.ml-dot-active {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7fbc8c;
+  box-shadow: 0 0 8px rgba(127, 188, 140, 0.58);
+}
+
+.ml-no-data {
+  color: var(--map-card-muted);
+  font-size: 9px;
+}
+
+.ml-spinner {
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(247, 182, 56, 0.2);
+  border-top-color: #f7b638;
+  border-radius: 50%;
+}
+
+@keyframes ml-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─────────── Popup ─────────── */
+.custom-popup .leaflet-popup-content-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.custom-popup .leaflet-popup-content {
+  margin: 0;
+  width: auto !important; /* Allow the inner component to set its own width */
+}
+
+.custom-popup .leaflet-popup-tip-container {
+  display: none;
+}
+
+/* ─────────── Leaflet overrides for dark theme ─────────── */
+.leaflet-control-attribution {
+  background: rgba(12, 14, 11, 0.86) !important;
+  color: #cbbba4 !important;
+  font-size: 9px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #f7b638 !important;
+}
+
+/* ─────────── Custom Leaflet Markers ─────────── */
+.custom-leaflet-marker {
+  background: transparent;
+  border: none;
+}
+
+.simple-map-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 2px 4px var(--marker-shadow-backdrop));
+}
+
+.simple-map-marker-ring {
+  position: absolute;
+  inset: 2px;
+  border-radius: 999px;
+  border: 2px solid var(--marker-outer-stroke);
+  background: color-mix(in srgb, var(--pin-color) var(--marker-ring-fill-mix), transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pin-color) 72%, transparent),
+    0 0 12px color-mix(in srgb, var(--pin-color) var(--marker-ring-shadow-mix), transparent);
+}
+
+.simple-map-marker-heat {
+  position: absolute;
+  inset: -3px;
+  border-radius: 999px;
+  background: var(--pin-glow);
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.simple-map-marker-dot {
+  position: absolute;
+  width: var(--marker-dot-size);
+  height: var(--marker-dot-size);
+  border-radius: 50%;
+  background: var(--pin-color);
+  border: 2px solid var(--marker-inner-stroke);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--pin-color) 70%, transparent),
+    0 0 8px var(--pin-glow);
+}
+
+.simple-map-marker--burning .simple-map-marker-ring {
+  border-color: rgba(255, 248, 238, 0.9);
+  animation: markerBurnRing 0.95s ease-out infinite;
+}
+
+.simple-map-marker--burning .simple-map-marker-heat {
+  animation: markerBurnHeat 0.95s ease-in-out infinite;
+}
+
+.simple-map-marker--clustered .simple-map-marker-ring {
+  box-shadow:
+    0 0 0 4px rgba(247, 182, 56, 0.18),
+    0 0 0 1px color-mix(in srgb, var(--pin-color) 72%, transparent),
+    0 0 14px color-mix(in srgb, var(--pin-color) 48%, transparent);
+}
+
+.nearby-hotspot-line {
+  animation: nearbyLineFlow 1.9s linear infinite;
+}
+
+.nearby-hotspot-area {
+  animation: nearbyAreaPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes markerBurnRing {
+  0% { transform: scale(0.92); opacity: 0.95; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
+
+@keyframes markerBurnHeat {
+  0%, 100% { opacity: 0.28; transform: scale(0.9); }
+  50% { opacity: 0.74; transform: scale(1.12); }
+}
+
+@keyframes nearbyLineFlow {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -20; }
+}
+
+@keyframes nearbyAreaPulse {
+  0%, 100% { opacity: 0.18; }
+  50% { opacity: 0.34; }
+}
+
+@keyframes gentlePulse {
+  0% { transform: scale(0.9); opacity: 0.8; filter: brightness(1); }
+  100% { transform: scale(1.1); opacity: 1; filter: brightness(1.3); }
+}
+
+@keyframes dangerThrob {
+  0% { transform: scale(0.95); filter: drop-shadow(0 0 2px currentColor); }
+  100% { transform: scale(1.1); filter: drop-shadow(0 0 8px currentColor); }
+}
+
+.fire-detail-card {
+  width: min(280px, calc(100vw - 48px)) !important;
+  max-width: calc(100vw - 48px);
+}
+
+.fire-detail-metric {
+  min-width: 0;
+}
+
+.fire-detail-value {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.fire-detail-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: auto;
+  min-width: 82px;
+  min-height: 26px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  border: 1px solid rgba(247, 182, 56, 0.68);
+  background: linear-gradient(135deg, rgba(247, 182, 56, 0.92), rgba(240, 138, 60, 0.9));
+  color: #1a0804;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 0 16px rgba(247, 182, 56, 0.22);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.fire-detail-action-button:hover {
+  border-color: rgba(247, 239, 228, 0.76);
+  box-shadow: 0 0 20px rgba(247, 182, 56, 0.34);
+  filter: brightness(1.04);
+}
+
+@media (max-width: 640px) {
+  .firemap-wrapper {
+    border-radius: 10px;
+    min-height: 390px;
+  }
+
+  .ml-status-badge {
+    top: 10px;
+    left: 10px;
+    right: auto;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+    min-height: 22px;
+    max-width: calc(100% - 92px);
+    padding: 3px 7px;
+    font-size: 9px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ml-status-badge span {
+    min-width: 0;
+  }
+
+  .ml-status-badge .ml-no-data {
+    flex: 0 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 7px;
+    letter-spacing: 0.15px;
+  }
+
+  .ws-indicator {
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 9px;
+  }
+
+  .map-theme-toggle {
+    top: 44px;
+    left: 10px;
+    min-height: 30px;
+    padding: 0 12px;
+    font-size: 9px;
+  }
+
+  .map-theme-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .map-gesture-hint {
+    padding: 18px;
+    font-size: 14px;
+  }
+
+  .map-legend {
+    left: 10px;
+    bottom: 46px;
+    padding: 10px 12px;
+    max-width: calc(100% - 20px);
+  }
+
+  .map-legend-toggle {
+    left: 10px;
+    bottom: 10px;
+    min-height: 26px;
+    padding: 0 9px;
+    font-size: 8px;
+  }
+
+  .legend-item {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+
+  .leaflet-control-attribution {
+    max-width: 70vw;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 640px), (pointer: coarse) {
+  .ws-indicator,
+  .map-theme-toggle,
+  .map-legend,
+  .ml-status-badge,
+  .simple-map-marker-ring {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .ws-dot,
+  .ml-dot-active,
+  .ml-spinner,
+  .simple-map-marker-ring,
+  .simple-map-marker-heat,
+  .nearby-hotspot-line,
+  .nearby-hotspot-area {
+    animation: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .map-legend {
+    padding: 8px 10px;
+  }
+
+  .legend-title {
+    margin-bottom: 6px;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .fire-detail-card {
+    width: min(270px, calc(100vw - 32px)) !important;
+    max-width: calc(100vw - 32px);
+    padding: 10px !important;
+  }
+
+  .fire-detail-card .flex.items-baseline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .fire-detail-card .fire-detail-metrics {
+    gap: 10px;
+  }
+
+  .fire-detail-card > .flex:last-child {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ml-status-badge {
+    justify-content: flex-start;
+    padding-right: 86px;
+  }
+
+  .ml-status-badge .ml-no-data {
+    display: none;
+  }
+
+  .ws-indicator {
+    top: 10px;
+    padding-inline: 8px;
+  }
+
+  .map-theme-toggle {
+    top: 42px;
+  }
+
+  .map-legend {
+    right: 10px;
+  }
+
+  .map-legend-toggle {
+    max-width: calc(100% - 20px);
+  }
+
+  .legend-title {
+    font-size: 8px;
+  }
+
+  .legend-item {
+    font-size: 9px;
+    gap: 6px;
+  }
+
+  .fire-detail-card {
+    width: min(250px, calc(100vw - 28px)) !important;
+    max-width: calc(100vw - 28px);
+  }
+}

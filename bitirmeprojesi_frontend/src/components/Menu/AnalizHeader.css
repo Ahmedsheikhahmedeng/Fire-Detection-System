@@ -1,0 +1,331 @@
+.analiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 56px;
+  min-height: 56px;
+  padding: 0 16px;
+  overflow: hidden;
+}
+
+.analiz-header-brand,
+.analiz-header-actions {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.analiz-header-brand-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.analiz-header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.analiz-header-logo svg {
+  width: 16px;
+  height: 16px;
+}
+
+.analiz-header-title {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.analiz-header-wordmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.analiz-header-wordmark span {
+  font-size: 14px;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.analiz-header-version {
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 9px !important;
+  letter-spacing: 1px !important;
+}
+
+.analiz-header-subtitle {
+  margin-top: 1px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.analiz-header-actions {
+  gap: 20px;
+}
+
+.analiz-header-status {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.analiz-header-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.analiz-header-chip span {
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.analiz-header-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.analiz-header-divider,
+.analiz-header-menu-divider {
+  width: 1px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.analiz-header-divider {
+  background: rgba(120, 1, 21, 0.5);
+}
+
+.analiz-header-menu-divider {
+  background: rgba(120, 1, 21, 0.72);
+}
+
+.analiz-header-menu-slot {
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.analiz-header-menu-scale {
+  transform: scale(0.65);
+  transform-origin: right center;
+  white-space: nowrap;
+}
+
+.analiz-header-chip svg {
+  width: 13px;
+  height: 13px;
+}
+
+@media (max-width: 980px) {
+  .analiz-header {
+    height: 56px !important;
+    min-height: 56px !important;
+    flex-wrap: nowrap;
+    align-content: initial;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .analiz-header-brand {
+    flex: 0 1 auto;
+    padding-right: 0;
+  }
+
+  .analiz-header-brand-inner {
+    gap: 6px;
+  }
+
+  .analiz-header-title {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .analiz-header-wordmark {
+    gap: 5px;
+  }
+
+  .analiz-header-wordmark span {
+    font-size: 10px;
+    letter-spacing: 0.7px;
+  }
+
+  .analiz-header-version {
+    padding: 1px 4px;
+    font-size: 7px !important;
+    letter-spacing: 0.35px !important;
+  }
+
+  .analiz-header-subtitle {
+    margin-top: 0;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 7px;
+    letter-spacing: 0.15px;
+    white-space: nowrap;
+  }
+
+  .analiz-header-actions {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 6px;
+  }
+
+  .analiz-header-status {
+    position: static;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+    gap: 8px;
+    justify-content: flex-end;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0;
+  }
+
+  .analiz-header-status::-webkit-scrollbar {
+    display: none;
+  }
+
+  .analiz-header-chip {
+    gap: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    min-width: max-content;
+  }
+
+  .analiz-header-chip span {
+    font-size: 8px;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+  }
+
+  .analiz-header-divider,
+  .analiz-header-menu-divider {
+    display: none;
+  }
+
+  .analiz-header-menu-slot {
+    order: initial;
+    width: 58px;
+  }
+
+  .analiz-header-menu-scale {
+    transform: scale(0.42);
+  }
+}
+
+@media (max-width: 480px) {
+  .analiz-header {
+    height: 56px !important;
+    min-height: 56px !important;
+    gap: 5px;
+    padding: 0 6px;
+  }
+
+  .analiz-header-logo {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+  }
+
+  .analiz-header-logo svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .analiz-header-wordmark {
+    gap: 3px;
+    flex-wrap: nowrap;
+  }
+
+  .analiz-header-wordmark span {
+    font-size: 8px;
+    letter-spacing: 0.35px;
+  }
+
+  .analiz-header-version {
+    padding: 1px 3px;
+    font-size: 6px !important;
+  }
+
+  .analiz-header-subtitle {
+    max-width: 72px;
+    font-size: 6px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .analiz-header-status {
+    display: flex;
+    gap: 5px;
+    width: auto;
+    overflow-x: auto;
+  }
+
+  .analiz-header-chip {
+    justify-content: flex-start;
+    gap: 3px;
+    min-width: max-content;
+    padding: 0;
+  }
+
+  .analiz-header-chip span {
+    min-width: auto;
+    font-size: 6px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1.15;
+  }
+
+  .analiz-header-menu-slot {
+    width: 48px;
+  }
+
+  .analiz-header-menu-scale {
+    transform: scale(0.4);
+  }
+}
+
+@media (max-width: 380px) {
+  .analiz-header {
+    height: 52px !important;
+    min-height: 52px !important;
+  }
+
+  .analiz-header-subtitle {
+    display: none;
+  }
+
+  .analiz-header-chip span {
+    font-size: 6.5px;
+  }
+}

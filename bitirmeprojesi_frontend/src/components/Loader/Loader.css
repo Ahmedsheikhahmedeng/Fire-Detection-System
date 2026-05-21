@@ -1,0 +1,340 @@
+/* =========================
+   LOADING FIRE (3D SCATTER FINAL + SMOKE)
+   ========================= */
+
+   .lf-root{
+    position: fixed;
+    inset: 0;
+    background: var(--bg-page);
+    z-index: 9999;
+    overflow: hidden;
+  }
+  
+  /* center */
+  .lf-center{
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+  
+  /* counter */
+  .lf-counterCorner{
+    position: fixed;
+    left: 40px;
+    bottom: 40px;
+    font-size: 96px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(234, 240, 255, 0.95);
+    text-shadow:
+      0 0 16px var(--brand-crimson),
+      0 0 32px var(--brand-amber);
+  }
+  
+  @media (max-width: 700px){
+    .lf-counterCorner{
+      left: 18px;
+      bottom: 18px;
+      font-size: 72px;
+    }
+  }
+  
+  /* ===== FIRE ATMOSPHERE ===== */
+  .fire-bg{
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(600px 300px at 50% 110%, var(--brand-crimson), transparent 60%),
+      radial-gradient(600px 280px at 15% 115%, var(--brand-amber), transparent 65%),
+      radial-gradient(600px 280px at 85% 115%, var(--brand-amber), transparent 65%);
+    animation: fireGlow 3s ease-in-out infinite;
+    opacity: 0.85;
+    pointer-events:none;
+  }
+  
+  @keyframes fireGlow{
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-4px); }
+  }
+  
+  .embers{
+    position:absolute;
+    inset:0;
+    background-image:
+      radial-gradient(2px 2px at 15% 85%, var(--brand-amber), transparent 60%),
+      radial-gradient(2px 2px at 30% 78%, var(--brand-crimson), transparent 60%),
+      radial-gradient(2px 2px at 48% 92%, var(--brand-amber), transparent 60%),
+      radial-gradient(2px 2px at 60% 80%, var(--brand-crimson), transparent 60%),
+      radial-gradient(2px 2px at 72% 88%, var(--brand-amber), transparent 60%),
+      radial-gradient(2px 2px at 85% 75%, var(--brand-crimson), transparent 60%);
+    opacity: .65;
+    animation: embersUp 5.2s linear infinite;
+    pointer-events:none;
+  }
+  
+  @keyframes embersUp{
+    0%{ transform: translateY(22px); opacity: .55; }
+    30%{ opacity: .85; }
+    100%{ transform: translateY(-70px); opacity: 0; }
+  }
+  
+  .heat-haze{
+    position:absolute;
+    left:-10%;
+    top:55%;
+    width:120%;
+    height:55%;
+    background: radial-gradient(400px 160px at 50% 80%, rgba(255,255,255,0.04), transparent 70%);
+    filter: blur(6px);
+    opacity: .25;
+    mix-blend-mode: screen;
+    animation: haze 3s ease-in-out infinite;
+    pointer-events:none;
+  }
+  
+  @keyframes haze{
+    0%,100%{ transform: translateY(0) skewX(0deg); }
+    50%{ transform: translateY(-8px) skewX(2deg); }
+  }
+  
+  .lf-root.hot .fire-bg{ opacity: 1; }
+  .lf-root.hot .embers{ opacity: .85; }
+  
+  /* ===== FULLCOVER (GSAP scales) ===== */
+  .fullcover{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 28px;
+    height: 28px;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 999px;
+    opacity: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), var(--brand-amber), var(--brand-crimson));
+    box-shadow:
+      0 0 30px var(--brand-crimson),
+      0 0 60px var(--brand-amber);
+    pointer-events: none;
+  }
+  
+  /* ===== LOADER (blackhole) ===== */
+  .loader{
+    display: flex;
+    width: 8rem;
+    height: 8rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+  }
+  
+  .blackhole{
+    z-index: -1;
+    display: flex;
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .blackhole-circle{
+    z-index: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, black 25%, white 35%, white 100%);
+    box-shadow: 0px 0px 1rem var(--brand-amber);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .blackhole-circle::after{
+    z-index: 0;
+    position: absolute;
+    content: "";
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid white;
+    background: radial-gradient(circle at center, black 35%, white 60%, white 100%);
+    box-shadow: 0px 0px 2rem var(--brand-amber);
+    filter: blur(2px);
+    animation: pulseAnimation linear infinite 3s alternate-reverse;
+  }
+  
+  .blackhole-circle::before{
+    z-index: 1;
+    content: "";
+    display: flex;
+    width: 4rem;
+    height: 4rem;
+    border: 2px solid var(--text-primary);
+    box-shadow: 2px 2px 6px var(--brand-amber);
+    border-radius: 50%;
+    top: 5rem;
+    animation: rotate linear infinite 4s;
+  }
+  
+  .blackhole-disc{
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    width: 5rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #ffffff 80%, #353535 90%, white 100%);
+    filter: blur(0.6rem) brightness(120%);
+    border: 0.6rem solid white;
+    box-shadow: 0px 0px 1.5rem var(--brand-amber);
+    transform: rotate3d(1, 1, 1, 220deg);
+    animation: pulseAnimation2 linear infinite 3s alternate-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .blackhole-disc::before{
+    content: "";
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    width: 5rem;
+    height: 10rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #ffffff 80%, #353535 90%, white 100%);
+    filter: blur(1.5rem);
+    border: 0.6rem solid white;
+    box-shadow: 0px 0px 2rem var(--brand-amber);
+    animation: pulseAnimation linear infinite 3s alternate-reverse;
+  }
+  
+  /* ===== TEXT (3D-ready) ===== */
+  .curve-text{
+    position: absolute;
+    top: 112%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(360px, calc(100vw - 32px));
+    text-align: center;
+  
+    color: rgba(255,255,255,0.95);
+    font-size: 20px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-family: "Fira Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  
+    text-shadow:
+      0 0 10px var(--brand-amber),
+      0 0 26px var(--brand-crimson);
+  
+    user-select: none;
+  
+    /* 3D stage */
+    perspective: 900px;
+    transform-style: preserve-3d;
+  }
+  
+  .letter{
+    display: inline-block;
+    will-change: transform, opacity;
+    transform-style: preserve-3d;
+  }
+  
+  /* ===== SMOKE (only visible on final) ===== */
+  .lf-smoke{
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+  }
+  
+  /* final class ile güçlensin */
+  .lf-root.final .lf-smoke{
+    opacity: 1;
+  }
+  
+  .lf-smoke .sm{
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    width: 240px;
+    height: 180px;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    filter: blur(10px);
+    opacity: 0.0;
+    mix-blend-mode: screen;
+    background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.22), rgba(180,190,210,0.10), rgba(0,0,0,0) 70%);
+    animation: smokeRise 1.25s ease-out infinite;
+  }
+  
+  /* farklı bulutlar */
+  .lf-smoke .s1{ transform: translate(-55%, -40%) scale(1.0); animation-delay: 0.00s; }
+  .lf-smoke .s2{ transform: translate(-40%, -55%) scale(0.85); animation-delay: 0.08s; }
+  .lf-smoke .s3{ transform: translate(-62%, -60%) scale(0.95); animation-delay: 0.16s; }
+  .lf-smoke .s4{ transform: translate(-35%, -45%) scale(0.80); animation-delay: 0.22s; }
+  .lf-smoke .s5{ transform: translate(-50%, -70%) scale(1.10); animation-delay: 0.28s; }
+  
+  @keyframes smokeRise{
+    0%{
+      opacity: 0.0;
+      filter: blur(8px);
+      transform: translate(-50%, -20%) scale(0.85);
+    }
+    15%{ opacity: 0.45; }
+    100%{
+      opacity: 0.0;
+      filter: blur(14px);
+      transform: translate(-50%, -95%) scale(1.25);
+    }
+  }
+  
+  /* ===== Keyframes ===== */
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes pulseAnimation {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.06); }
+  }
+  
+  @keyframes pulseAnimation2 {
+    0% { transform: rotate3d(1, 1, 1, 220deg) scale(1); }
+    100% { transform: rotate3d(1, 1, 1, 220deg) scale(.96); }
+  }
+
+  @media (max-width: 520px) {
+    .loader,
+    .blackhole {
+      width: 6.5rem;
+      height: 6.5rem;
+    }
+
+    .blackhole-circle::before {
+      width: 3.2rem;
+      height: 3.2rem;
+    }
+
+    .blackhole-disc,
+    .blackhole-disc::before {
+      width: 4rem;
+      height: 8rem;
+    }
+
+    .curve-text {
+      top: 118%;
+      font-size: 14px;
+      letter-spacing: 4px;
+    }
+
+    .lf-counterCorner {
+      font-size: 56px;
+    }
+  }

@@ -1,0 +1,222 @@
+.footer-wrapper {
+    position: relative;
+    height: 600px; 
+}
+
+.footer-fixed-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 600px;
+     z-index: 10;
+}
+
+.footer-content-bg {
+    background-color: var(--surface-elevated); 
+    padding: 4rem 6rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.footer-nav {
+    display: flex;
+    flex-shrink: 0;
+    gap: clamp(3rem, 8vw, 8rem);
+    position: relative;
+    z-index: 200;
+    flex-wrap: wrap;
+}
+
+.footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-nav-col h3 {
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 2px;
+}
+
+/* Linklerin CSS Ayarları */
+.footer-disperse-link {
+    display: inline-flex;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+}
+
+.footer-disperse-link:hover {
+    color: var(--brand-crimson);
+    text-shadow: 0 0 2px var(--brand-amber), 0 0 12px var(--brand-crimson);
+}
+
+/* Background Overlay */
+.footer-background-overlay {
+    background-color: var(--bg-page);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 99;
+}
+
+.footer-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 100;
+}
+
+.footer-bottom-bar h1 {
+    font-size: 14vw;
+    line-height: 0.8;
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    font-family: 'Bebas Neue', cursive;
+    color: var(--brand-crimson);
+    text-shadow: 0 0 2px var(--brand-amber), 0 0 18px var(--brand-crimson);
+    letter-spacing: 5px;
+}
+
+.footer-bottom-bar p {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 1.5vw;
+}
+
+@media (max-width: 1024px) {
+    .footer-wrapper, .footer-fixed-container {
+        height: 500px;
+    }
+    .footer-content-bg {
+        padding: 3rem 2rem;
+    }
+    .footer-bottom-bar p {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-wrapper, .footer-fixed-container {
+        height: clamp(560px, 72svh, 680px);
+        min-height: 0;
+    }
+
+    .footer-fixed-container {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+    }
+
+    .footer-content-bg {
+        height: 100%;
+        min-height: 0;
+        padding: clamp(2rem, 5vh, 2.8rem) 1.25rem 1.4rem;
+        overflow: hidden;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        gap: clamp(1.1rem, 3.5vh, 1.8rem);
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9rem;
+    }
+
+    .footer-bottom-bar h1 {
+        font-size: clamp(4.5rem, 20vw, 8rem);
+        letter-spacing: 2px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    .footer-wrapper, .footer-fixed-container,
+    .footer-content-bg {
+        height: clamp(580px, 76svh, 700px);
+        min-height: 0;
+    }
+
+    .footer-content-bg {
+        padding: 2.1rem 1rem 1.25rem;
+    }
+
+    .footer-nav {
+        gap: clamp(1rem, 2.8vh, 1.45rem);
+    }
+
+    .footer-nav-col h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .footer-disperse-link {
+        font-size: 0.92rem;
+    }
+
+    .footer-bottom-bar h1 {
+        font-size: clamp(3.3rem, 17vw, 5rem);
+        letter-spacing: 1px;
+        line-height: 0.9;
+    }
+
+    .footer-bottom-bar p {
+        font-size: 0.78rem;
+    }
+}
+
+/* Hover olunca diğerlerini soldur */
+.footer-nav:hover .footer-disperse-link {
+    opacity: 0.4;
+    filter: blur(0.5px);
+    transition: all 0.3s ease;
+}
+
+/* Hover olan item */
+.footer-disperse-link:hover {
+    opacity: 1 !important;
+    filter: blur(0px);
+    color: var(--brand-crimson);
+    transform: scale(1.05);
+}
+
+.footer-disperse-link:hover span {
+    text-shadow: 0 0 10px var(--brand-crimson);
+}
+
+@media (pointer: coarse) {
+    .footer-nav:hover .footer-disperse-link,
+    .footer-disperse-link:hover {
+        opacity: 1;
+        filter: none;
+        transform: none;
+    }
+
+    .footer-disperse-link:hover span {
+        text-shadow: none;
+    }
+}

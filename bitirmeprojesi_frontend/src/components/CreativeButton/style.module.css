@@ -1,0 +1,338 @@
+.buttonWrapper {
+  display: inline-block;
+  padding: 20px;
+  max-width: 100%;
+}
+
+/* =========================
+   NORMAL BUTTON
+========================= */
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 35px;
+  border: 1px solid rgba(120, 1, 21, 0.78);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(25, 2, 7, 0.98), rgba(120, 1, 21, 0.94) 58%, rgba(61, 0, 11, 0.96));
+  color: #fff4df;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: 48px;
+  max-width: 100%;
+}
+
+.fill {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 30% 32%, rgba(247, 182, 56, 0.2), transparent 38%),
+    linear-gradient(90deg, #120005, #780115 62%, #2c0008);
+  border-radius: 50%;
+  transition: all 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 1;
+}
+
+.button:hover .fill {
+  top: -50%;
+  border-radius: 0;
+}
+
+.button:hover {
+  color: #fff8ee;
+  border-color: rgba(247, 182, 56, 0.34);
+  box-shadow:
+    0 0 18px rgba(247, 182, 56, 0.12),
+    0 0 22px rgba(120, 1, 21, 0.44);
+}
+
+.text {
+  position: relative;
+  z-index: 4;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  pointer-events: none;
+  transition: color 0.4s ease;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.buttonWaveBack,
+.buttonWaveFront {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.buttonWaveBack {
+  z-index: 2;
+  width: 124%;
+  height: 126%;
+  transform: translate(-50%, -50%) scaleX(1.2) rotate(180deg);
+  opacity: 0.86;
+  animation: buttonWavePulse 2.6s ease-in-out infinite;
+}
+
+.buttonWaveFront {
+  z-index: 3;
+  width: 104%;
+  height: 112%;
+  transform: translate(-50%, -30%);
+  fill: rgba(120, 1, 21, 0.9);
+  filter:
+    drop-shadow(0 -4px 10px rgba(247, 182, 56, 0.22))
+    drop-shadow(0 2px 8px rgba(120, 1, 21, 0.26));
+}
+
+.button:hover .buttonWaveBack {
+  animation: none;
+  opacity: 1;
+  transform: translate(-50%, -44%) scaleX(1.22) rotate(180deg);
+}
+
+.button:hover .buttonWaveFront {
+  transform: translate(-50%, -34%) scale(0.96);
+}
+
+@keyframes buttonWavePulse {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* =========================
+   FOREST BUTTON
+========================= */
+
+.forestWrapper {
+  --forest-clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+  padding: 20px;
+  filter:
+    drop-shadow(4px 0 0 var(--brand-maroon))
+    drop-shadow(0 0 14px rgba(210, 65, 32, 0.3));
+}
+
+.forestButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(178px, 16vw, 230px);
+  min-height: 54px;
+  padding: 15px 38px;
+  border: 1px solid rgba(255, 213, 122, 0.48);
+  border-radius: 0;
+  clip-path: var(--forest-clip);
+  overflow: hidden;
+  cursor: pointer;
+  color: transparent;
+  background:
+    linear-gradient(90deg, rgba(158, 31, 26, 0.92), rgba(220, 75, 28, 0.96) 42%, rgba(25, 108, 65, 0.96)),
+    radial-gradient(circle at 18% 45%, rgba(255, 221, 128, 0.65), transparent 32%);
+  box-shadow:
+    0 14px 34px rgba(93, 18, 10, 0.38),
+    0 0 22px rgba(246, 144, 45, 0.24),
+    inset 0 1px 0 rgba(255, 244, 202, 0.35);
+  transition:
+    filter 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.forestButton::after {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  z-index: 2;
+  border-radius: 0;
+  clip-path: var(--forest-clip);
+  background:
+    linear-gradient(90deg, rgba(12, 25, 18, 0.9), rgba(23, 49, 30, 0.78)),
+    radial-gradient(circle at 70% 40%, rgba(255, 194, 72, 0.24), transparent 38%);
+  box-shadow: inset 0 0 18px rgba(255, 201, 91, 0.12);
+}
+
+.forestButton:hover {
+  filter: saturate(1.15);
+  border-color: rgba(255, 218, 120, 0.72);
+  box-shadow:
+    0 18px 42px rgba(88, 21, 10, 0.45),
+    0 0 34px rgba(239, 99, 35, 0.35),
+    inset 0 1px 0 rgba(255, 244, 202, 0.42);
+}
+
+.forestButton:active {
+  filter: saturate(1.32);
+}
+
+/* =========================
+   FOREST TEXT
+========================= */
+
+.forestText,
+.forestTextAlt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  pointer-events: none;
+
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  transition: transform 0.3s ease;
+}
+
+/* Siyah butonda yazı görünmesi için beyaz yaptım */
+.forestText {
+  transform: translate(-50%, -32%);
+  background-image: linear-gradient(
+    90deg,
+    #ffffff,
+    #d9d9d9,
+    #ffffff
+  );
+}
+
+.forestTextAlt {
+  transform: translate(-50%, 105%);
+  background-image: linear-gradient(
+    90deg,
+    #ffffff,
+    #cfcfcf,
+    #ffffff
+  );
+}
+
+.forestButton:hover .forestText {
+  transform: translate(-50%, -125%);
+}
+
+.forestButton:hover .forestTextAlt {
+  transform: translate(-50%, -38%);
+}
+
+/* =========================
+   FOREST SVG WAVES / TREES
+   Bunların rengini bozmadım
+========================= */
+
+.forestWaveBack,
+.forestWaveFront {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  pointer-events: none;
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.forestWaveBack {
+  z-index: 3;
+  width: 122%;
+  height: 124%;
+  transform: translate(-50%, -50%) scaleX(1.18) rotate(180deg);
+  opacity: 0.92;
+  animation: forestPulse 2.4s ease-in-out infinite;
+}
+
+.forestWaveFront {
+  z-index: 4;
+  width: 104%;
+  height: 112%;
+  transform: translate(-50%, -30%);
+
+  /* Ağaç/dalga ön rengi aynı bırakıldı */
+  fill: rgba(35, 33, 32, 0.88);
+}
+
+.forestButton:hover .forestWaveBack {
+  animation: none;
+  transform: translate(-50%, -44%) scaleX(1.2) rotate(180deg);
+}
+
+.forestButton:hover .forestWaveFront {
+  transform: translate(-50%, -34%) scale(0.95);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes forestPulse {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 520px) {
+  .buttonWrapper {
+    padding: 12px;
+  }
+
+  .button {
+    padding: 12px 24px;
+    min-height: 44px;
+  }
+
+  .text {
+    font-size: 12px;
+    letter-spacing: 1.2px;
+  }
+
+  .forestButton {
+    min-width: 168px;
+    min-height: 50px;
+    padding: 13px 28px;
+  }
+
+  .forestText,
+  .forestTextAlt {
+    font-size: 11px;
+    letter-spacing: 1.3px;
+  }
+}

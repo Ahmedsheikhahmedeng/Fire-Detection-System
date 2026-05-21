@@ -1,0 +1,51 @@
+.fire-analysis-page {
+  background: #000;
+  min-height: 100vh;
+}
+
+.fire-analysis-page .monitoring-section {
+  padding-top: calc(56px + env(safe-area-inset-top, 0px));
+}
+
+.fire-analysis-page .monitoring-content {
+  padding-top: 4px;
+}
+
+.fire-analysis-risk-wrap {
+  padding: 4rem 0;
+  background: #120005;
+}
+
+@media (max-width: 900px) {
+  .fire-analysis-risk-wrap {
+    padding: 2.5rem 0;
+  }
+
+  .fire-analysis-page .monitoring-section {
+    padding-top: calc(56px + env(safe-area-inset-top, 0px));
+  }
+
+  .fire-analysis-page .monitoring-content {
+    padding-top: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .fire-analysis-risk-wrap {
+    padding: 1.5rem 0;
+  }
+
+  .fire-analysis-page .monitoring-section {
+    padding-top: calc(56px + env(safe-area-inset-top, 0px));
+  }
+
+  .fire-analysis-page .monitoring-content {
+    padding-top: 3px;
+  }
+}
+
+@media (max-width: 380px) {
+  .fire-analysis-page .monitoring-section {
+    padding-top: calc(52px + env(safe-area-inset-top, 0px));
+  }
+}

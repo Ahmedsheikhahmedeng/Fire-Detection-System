@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-page: #020101;
+  --surface-deep: #0a0203;
+  --surface-elevated: #160506;
+  --surface-soft: #24100c;
+
+  --text-primary: #fff8ee;
+  --text-secondary: #d9c6b0;
+  --text-muted: #9d8d80;
+
+  --brand-crimson: #c9232a;
+  --brand-crimson-deep: #7a1016;
+  --brand-ember: #e84635;
+  --brand-amber: #f2b13a;
+  --brand-maroon: var(--brand-crimson);
+  --brand-xanthous: var(--brand-amber);
+  --brand-maroon-rgb: 201, 35, 42;
+  --brand-xanthous-rgb: 242, 177, 58;
+
+  --glow-crimson: rgba(201, 35, 42, 0.42);
+  --glow-amber: rgba(242, 177, 58, 0.36);
+  --line-soft: rgba(255, 248, 238, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  display: block;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+/* =========================================================================
+   CYBERPUNK BUTON STİLİ (Global)
+   ========================================================================= */
+.cybr-btn-wrapper {
+  --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+  --shadow-primary: var(--brand-maroon);
+  filter: drop-shadow(4px 0px 0px var(--shadow-primary));
+}
+
+.cybr-btn-wrapper > div {
+  clip-path: var(--clip);
+  border-radius: 0 !important; 
+  border: 1px solid var(--line-soft) !important;
+  background-color: var(--bg-page) !important; 
+}
+
+.cybr-btn-wrapper > div > div:first-child {
+  clip-path: var(--clip);
+  border-radius: 0 !important;
+}
+
+@media (max-width: 520px) {
+  body {
+    min-width: 0;
+  }
+
+  .cybr-btn-wrapper {
+    filter: drop-shadow(2px 0px 0px var(--shadow-primary));
+  }
+}

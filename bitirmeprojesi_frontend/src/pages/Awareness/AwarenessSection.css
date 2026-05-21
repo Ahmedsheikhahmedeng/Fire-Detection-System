@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
+.aw-main {
+  position: relative;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.aw-panel {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 720px;
+  overflow: hidden;
+  contain: paint;
+  background: var(--bg-page);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.aw-copy-shell {
+  position: absolute;
+  left: clamp(2rem, 5vw, 6rem);
+  top: clamp(5rem, 10vh, 8rem);
+  bottom: clamp(3rem, 7vh, 6rem);
+  z-index: 10;
+  display: flex;
+  width: min(30vw, 35rem);
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.aw-title-lines {
+  width: max-content;
+  max-width: 100%;
+}
+
+.aw-description {
+  width: min(28rem, 100%);
+  max-width: 100%;
+}
+
+.aw-desc-main {
+  margin-bottom: 1.5rem !important;
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.18rem, 1.45vw, 1.78rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.aw-desc-sub {
+  color: var(--text-secondary);
+  font-size: clamp(0.9rem, 0.95vw, 1.08rem);
+  font-weight: 400;
+  line-height: 1.8;
+  opacity: 0.8;
+}
+
+.aw-media-shell {
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  z-index: 1;
+  width: min(50vw, 62rem);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.aw-media-frame {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  background: var(--surface-elevated);
+  box-shadow: 
+    0 40px 100px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(var(--brand-maroon-rgb), 0.15);
+  position: relative;
+}
+
+.aw-media-frame img,
+.aw-media-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aw-services-shell {
+  position: absolute;
+  right: clamp(2rem, 5vw, 6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  width: 200px;
+}
+
+.aw-services-list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: var(--brand-amber);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-right: 2px solid var(--brand-crimson);
+  padding-right: 1.5rem;
+  text-align: right;
+}
+
+.aw-divider {
+  margin: 0;
+  border: 0;
+  opacity: 0;
+}
+
+.aw-text-effect {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.08em 0.02em 0.12em;
+  color: transparent;
+  background-image: linear-gradient(to right, var(--brand-crimson) 50%, var(--brand-amber) 50%);
+  background-position: 100% 0%;
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(3.05rem, 4.65vw, 5.7rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.aw-text-effect > span {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: block;
+  width: 100%;
+  padding: inherit;
+  color: var(--text-primary);
+  clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+  font-size: inherit;
+  font-weight: 800;
+  letter-spacing: inherit;
+  line-height: inherit;
+  pointer-events: none;
+  text-transform: uppercase;
+  transition: clip-path cubic-bezier(0.1, 0.5, 0.5, 1) 0.3s;
+  white-space: inherit;
+}
+
+.aw-text-effect:hover > span {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.aw-main [data-media] {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+@media (max-width: 1023px) {
+  .aw-main {
+    overflow-x: hidden;
+  }
+
+  .aw-panel {
+    display: grid;
+    height: auto;
+    min-height: 100svh;
+    padding:
+      max(4.65rem, calc(3.95rem + env(safe-area-inset-top)))
+      clamp(0.95rem, 4vw, 1.35rem)
+      max(2.25rem, calc(1.8rem + env(safe-area-inset-bottom)));
+    align-content: start;
+    gap: clamp(0.78rem, 2.5vw, 1.05rem);
+    contain: paint;
+  }
+
+  .aw-copy-shell {
+    display: contents;
+  }
+
+  .aw-title-lines {
+    position: relative;
+    z-index: 3;
+    order: 1;
+    width: 100%;
+  }
+
+  .aw-text-effect {
+    width: fit-content;
+    max-width: 100%;
+    background-position: 0% 0%;
+    filter: none;
+    font-size: clamp(2.55rem, 11.5vw, 3.55rem);
+    line-height: 0.95;
+  }
+
+  .aw-text-effect > span {
+    display: none;
+  }
+
+  .aw-description {
+    position: relative;
+    z-index: 3;
+    order: 2;
+    width: min(100%, 31rem);
+    margin: 0.15rem 0 0;
+  }
+
+  .aw-desc-main {
+    margin-bottom: 0.7rem !important;
+    font-size: clamp(0.9rem, 3.55vw, 1.08rem);
+    line-height: 1.55;
+  }
+
+  .aw-desc-sub {
+    max-width: 28rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: clamp(0.78rem, 3.1vw, 0.9rem);
+    line-height: 1.68;
+  }
+
+  .aw-media-shell {
+    position: relative;
+    left: auto;
+    top: auto;
+    z-index: 1;
+    order: 3;
+    width: 100%;
+    margin: 0.35rem 0 0.15rem;
+    overflow: hidden;
+    background: var(--surface-deep);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .aw-main [data-media] {
+    width: 100%;
+    aspect-ratio: 16 / 8.4;
+    box-shadow: none;
+    will-change: transform, opacity;
+  }
+
+  .aw-main [data-media] img,
+  .aw-main [data-media] video {
+    transform: none;
+    will-change: auto;
+  }
+
+  .aw-services-shell {
+    position: relative;
+    right: auto;
+    top: auto;
+    z-index: 3;
+    order: 4;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.05rem;
+  }
+
+  .aw-services-list {
+    gap: 0.42rem;
+    font-size: clamp(0.56rem, 2.25vw, 0.68rem);
+    letter-spacing: 0.16em;
+    line-height: 1.15;
+  }
+}
+
+@media (max-width: 420px) {
+  .aw-panel {
+    padding-top: max(4.35rem, calc(3.65rem + env(safe-area-inset-top)));
+    gap: 0.72rem;
+  }
+
+  .aw-text-effect {
+    font-size: clamp(2.32rem, 11.4vw, 3.05rem);
+  }
+
+  .aw-desc-main {
+    font-size: clamp(0.84rem, 3.4vw, 0.96rem);
+  }
+
+  .aw-desc-sub {
+    font-size: clamp(0.72rem, 3vw, 0.86rem);
+  }
+}
+
+@media (max-width: 360px) {
+  .aw-panel {
+    padding-inline: 0.82rem;
+  }
+
+  .aw-text-effect {
+    font-size: 2.35rem;
+  }
+
+  .aw-desc-main {
+    font-size: 0.86rem;
+  }
+
+  .aw-desc-sub {
+    font-size: 0.75rem;
+  }
+
+  .aw-services-list {
+    gap: 0.34rem;
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 1023px) and (max-height: 760px) {
+  .aw-panel {
+    padding-top: max(3.9rem, calc(3.25rem + env(safe-area-inset-top)));
+    padding-bottom: max(1.6rem, calc(1.25rem + env(safe-area-inset-bottom)));
+    gap: 0.62rem;
+  }
+
+  .aw-text-effect {
+    font-size: clamp(2.35rem, 11vw, 3.25rem);
+  }
+
+  .aw-desc-main {
+    margin-bottom: 0.52rem !important;
+    font-size: clamp(0.86rem, 3.5vw, 1rem);
+    line-height: 1.48;
+  }
+
+  .aw-desc-sub {
+    font-size: clamp(0.72rem, 3vw, 0.88rem);
+    line-height: 1.56;
+  }
+
+  .aw-services-list {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: end;
+    gap: 0.3rem 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aw-text-effect {
+    background-position: 0% 0%;
+  }
+
+  .aw-main [data-media],
+  .aw-text-effect,
+  .aw-text-effect > span {
+    transition: none !important;
+    animation: none !important;
+  }
+}

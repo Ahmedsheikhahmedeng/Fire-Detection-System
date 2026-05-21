@@ -1,0 +1,134 @@
+[
+  //FIRMS / uydu ham ve metadata
+
+
+  "bright_ti4",//4 µm parlaklık sıcaklığı (kanal parlaklığı).
+  "bright_ti5",//5 µm parlaklık sıcaklığı (kanal parlaklığı).
+  "confidence",//Güvenilirlik değeri (0-100).
+  "day_of_year",//Yılın günü.
+  "daynight",//Gündüz/Gece değeri (0-1).
+  "firms_source",//FIRMS kaynağı (VIIRS_SNPP_NRT, VIIRS_SNPP_2022_EXTERNAL, MODIS_Terra_NRT, MODIS_Aqua_NRT).
+  "frp",//Yanan alanın toplam güç değeri (MW).
+  "hour",//Saat.
+  "instrument",//Alıcı aygıtı (VIIRS, MODIS).
+  "is_fire_season",//Yangın mevsimi (0-1).
+  "is_peak_fire_season",//Yangın mevsiminin tepe noktası (0-1).
+  "lat_grid",//Enlem değeri.
+  "latitude",//Enlem değeri.
+  "lon_grid",//Boylam değeri.
+  "longitude",//Boylam değeri.
+  "month",//Ay.
+  "satellite",//Uydusu (N, S).
+  "scan",//Tarama açısı (0-1).
+  "track",//Takip açısı (0-1).
+  "type",//Tip (0-1).
+  "version",//Versiyon.
+  "year",//Yıl.
+
+
+  //Takvim / döngüsel kodlama
+
+
+  "day",//Gün.
+  "weekday",//Hafta içi (0-6).
+  "is_weekend",//Hafta sonu (0-1).
+  "season",//Mevsim (winter, spring, summer, autumn).   
+  "month_sin",//Aylık sinüs değeri.
+  "month_cos",//Aylık cosinüs değeri.
+  "hour_sin",//Saat sinüs değeri.
+  "hour_cos",//Saat cosinüs değeri.
+
+  //Türetilmiş fizik / geometri
+
+
+  "log_frp",//Yanan alanın logaritmik güç değeri.
+  "ti4_ti5_diff",//4 µm ve 5 µm parlaklık sıcaklığı farkı.
+  "pixel_area_proxy",//Piksel alanı proxy değeri.
+  "frp_per_pixel_area",//Yanan alanın piksel alanına göre güç değeri.
+  "confidence_clean",//Güvenilirlik değeri (0-100).
+
+  //Uzamsal bağlam (yakındaki diğer noktalar)
+
+
+  "nearby_count_2km_24h",//2 km yarıçaplı 24 saatlik yakınındaki hotspot sayısı.
+  "nearby_max_frp_2km_24h",//2 km yarıçaplı 24 saatlik yakınındaki hotspot'ların en yüksek güç değeri.
+  "nearby_mean_frp_2km_24h",//2 km yarıçaplı 24 saatlik yakınındaki hotspot'ların ortalama güç değeri.
+  "nearby_count_5km_48h",//5 km yarıçaplı 48 saatlik yakınındaki hotspot sayısı.
+  "nearby_max_frp_5km_48h",//5 km yarıçaplı 48 saatlik yakınındaki hotspot'ların en yüksek güç değeri.
+  "nearby_mean_frp_5km_48h",//5 km yarıçaplı 48 saatlik yakınındaki hotspot'ların ortalama güç değeri.
+  "nearby_count_10km_72h",//10 km yarıçaplı 72 saatlik yakınındaki hotspot sayısı.
+  "nearby_max_frp_10km_72h",//10 km yarıçaplı 72 saatlik yakınındaki hotspot'ların en yüksek güç değeri.
+  "nearby_mean_frp_10km_72h",//10 km yarıçaplı 72 saatlik yakınındaki hotspot'ların ortalama güç değeri.
+
+  //Hava: genel ve 24 saat
+
+  "weather_fetch_ok",//Hava verilerinin alınıp alınmadığı (0-1).
+  "weather_hour_count_7d",//7 günlük hava durumu saat sayısı.
+  "weather_hours_24h",//24 saatlik hava durumu saat sayısı.
+  "temp_mean_24h",//24 saatlik sıcaklık ortalama değeri. °C olarak.
+  "temp_max_24h",//24 saatlik sıcaklık maksimum değeri. °C olarak.
+  "temp_min_24h",//24 saatlik sıcaklık minimum değeri. °C olarak.
+  "rh_mean_24h",//24 saatlik nem ortalama değeri.
+  "rh_min_24h",//24 saatlik nem minimum değeri. % olarak.
+  "wind_mean_24h",//24 saatlik rüzgar ortalama değeri. m/s olarak.
+  "wind_max_24h",//24 saatlik rüzgar maksimum değeri. m/s olarak.
+  "gust_max_24h",//24 saatlik rüzgar maksimum değeri. m/s olarak.
+  "precip_sum_24h",//24 saatlik yağış toplamı. mm olarak.
+  "vpd_mean_24h",//24 saatlik VPD ortalama değeri. kPa olarak.
+  "vpd_max_24h",//24 saatlik VPD maksimum değeri. kPa olarak.
+
+  //3 gün ve 7 gün hava özetleri (yukarıdakilerle aynı tür, farklı pencere)
+
+  
+  "weather_hours_3d",//3 günlük hava durumu saat sayısı.
+  "temp_mean_3d",//3 günlük sıcaklık ortalama değeri. °C olarak.
+  "temp_max_3d",//3 günlük sıcaklık maksimum değeri. °C olarak.
+  "temp_min_3d",//3 günlük sıcaklık minimum değeri. °C olarak.
+  "rh_mean_3d",//3 günlük nem ortalama değeri. % olarak.
+  "rh_min_3d",//3 günlük nem minimum değeri. % olarak.
+  "wind_mean_3d",//3 günlük rüzgar ortalama değeri. m/s olarak.
+  "wind_max_3d",//3 günlük rüzgar maksimum değeri. m/s olarak.
+  "gust_max_3d",//3 günlük rüzgar maksimum değeri. m/s olarak.
+  "precip_sum_3d",//3 günlük yağış toplamı. mm olarak.
+  "vpd_mean_3d",//3 günlük VPD ortalama değeri. kPa olarak.
+  "vpd_max_3d",//3 günlük VPD maksimum değeri. kPa olarak.  
+  "weather_hours_7d",//7 günlük hava durumu saat sayısı.
+  "temp_mean_7d",//7 günlük sıcaklık ortalama değeri. °C olarak.
+  "temp_max_7d",//7 günlük sıcaklık maksimum değeri. °C olarak.
+  "temp_min_7d",//7 günlük sıcaklık minimum değeri. °C olarak.
+  "rh_mean_7d",//7 günlük nem ortalama değeri. % olarak.
+  "rh_min_7d",//7 günlük nem minimum değeri. % olarak.
+  "wind_mean_7d",//7 günlük rüzgar ortalama değeri. m/s olarak.
+  "wind_max_7d",//7 günlük rüzgar maksimum değeri. m/s olarak.
+  "gust_max_7d",//7 günlük rüzgar maksimum değeri. m/s olarak.
+  "precip_sum_7d",//7 günlük yağış toplamı. mm olarak.
+  "vpd_mean_7d",//7 günlük VPD ortalama değeri. kPa olarak.
+  "vpd_max_7d",//7 günlük VPD maksimum değeri. kPa olarak.
+
+
+  //Kuruluk / yağış deseni
+
+
+  "dry_days_count_7d",//7 günlük nem ortalama değeri. % olarak.
+  "rainy_days_count_7d",//7 günlük yağışlı gün sayısı.
+  "dryness_24h",//24 saatlik nem ortalama değeri. % olarak.
+  "dryness_3d",//3 günlük nem ortalama değeri. % olarak.
+  "dryness_7d",//7 günlük nem ortalama değeri. % olarak.
+  "heat_dry_index_24h",//24 saatlik nem ortalama değeri. % olarak.
+  "wind_dryness_index_24h",//24 saatlik rüzgar nem ortalama değeri. % olarak.
+  "gust_dryness_index_24h",//24 saatlik rüzgar nem ortalama değeri. % olarak.
+  "no_rain_24h",//24 saatlik yağışlı gün sayısı.
+  "no_rain_3d",//3 günlük yağışlı gün sayısı.
+  "no_rain_7d",//7 günlük yağışlı gün sayısı.           
+
+  //FWI
+
+  "ffmc_proxy",//FFMC proxy değeri.
+  "dmc_proxy",//DMC proxy değeri.
+  "dc_proxy",//DC proxy değeri.
+  "isi_proxy",//ISI proxy değeri.
+  "bui_proxy",//BUI proxy değeri.
+  "fwi_proxy",//FWI proxy değeri.
+  "weather_missing_any",//Hava verilerinin alınıp alınmadığı (0-1).
+  "weather_missing_count",//Hava verilerinin alınıp alınmadığı (0-1).
+]

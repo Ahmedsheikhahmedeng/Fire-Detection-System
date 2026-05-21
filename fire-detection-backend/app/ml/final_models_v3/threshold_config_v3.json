@@ -1,0 +1,23 @@
+{
+  "version": "v3",
+  "primary_watch_model": "v3_lightgbm_full",
+  "holdout_best_watch_model": "v3_catboost_full",
+  "stable_ensemble_model": "average_hgb_xgboost_lightgbm_catboost",
+  "lightgbm_watch_threshold": 0.56,
+  "catboost_watch_threshold": 0.64,
+  "xgboost_watch_threshold": 0.68,
+  "hgb_core_watch_threshold": 0.6,
+  "ensemble_watch_threshold": 0.73,
+  "rf_balanced_threshold": 0.46,
+  "rf_recall90_threshold": 0.5,
+  "extratrees_strict_threshold": 0.52,
+  "extratrees_recall90_threshold": 0.5,
+  "decision_system": {
+    "level_0": "low_risk_no_fire",
+    "level_1": "watch_early_warning",
+    "level_2": "high_confidence_balanced_fire",
+    "level_3": "strict_fire_alert",
+    "level_4": "very_strict_fire_alert"
+  },
+  "notes": "Thresholds selected only from V3 validation split. test_2021 and holdout_2022 were used only for evaluation."
+}

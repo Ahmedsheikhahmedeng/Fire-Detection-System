@@ -1,0 +1,236 @@
+.header {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  z-index: 1000;
+  max-width: calc(100vw - 24px);
+}
+
+.menuButtonWrapper {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  z-index: 20;
+  padding: 0 !important;
+  transform: none;
+  transform-origin: top right;
+  filter:
+    drop-shadow(4px 0 0 #780115)
+    drop-shadow(0 0 14px rgba(120, 1, 21, 0.26));
+}
+
+.menuButtonWrapper > div {
+  min-width: 104px;
+  min-height: 44px;
+  padding: 0 24px !important;
+  border: 1px solid rgba(120, 1, 21, 0.78) !important;
+  background:
+    linear-gradient(90deg, #090305 0%, #780115 62%, #2c0008 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 238, 0.12),
+    0 10px 26px rgba(0, 0, 0, 0.28) !important;
+}
+
+.menuButtonWrapper > div > div:first-child {
+  background:
+    linear-gradient(90deg, rgba(247, 182, 56, 0.22) 0%, #780115 44%, #120005 100%) !important;
+}
+
+.menuButtonWrapper span {
+  color: #fff4df !important;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
+}
+
+.menuButtonWrapper svg {
+  display: none;
+}
+
+.menuButtonWrapper:hover > div {
+  border-color: rgba(247, 182, 56, 0.34) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 248, 238, 0.18),
+    0 0 14px rgba(247, 182, 56, 0.1),
+    0 0 22px rgba(120, 1, 21, 0.42) !important;
+}
+
+.analizMenuBtn {
+  top: 5px !important;
+  right: 250px !important;
+  transform: scale(0.65);
+}
+
+.menu {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(228, 169, 70, 0.1), transparent 30%),
+    radial-gradient(circle at 100% 100%, rgba(217, 70, 55, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(20, 7, 6, 0.96), rgba(5, 2, 2, 0.98));
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.48);
+  border: 1px solid rgba(255, 248, 238, 0.08);
+}
+
+.menu::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(228, 169, 70, 0.62), rgba(217, 70, 55, 0.4), transparent);
+  pointer-events: none;
+}
+
+.menu::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 248, 238, 0.03);
+  pointer-events: none;
+}
+
+.nav {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 80px 40px 40px 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.linkContainer {
+  line-height: 1;
+}
+
+.linkContainer a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-size: clamp(2rem, 4vw, 46px);
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: 0 0 18px rgba(0, 0, 0, 0.22);
+  transition: color 0.16s ease, transform 0.16s ease;
+}
+
+.nav:hover a {
+  opacity: 1;
+}
+
+.nav a:hover {
+  color: var(--brand-amber) !important;
+  transform: translateX(4px);
+}
+
+/* Canlı İzleme Butonu */
+.canliIzleme {
+  color: var(--brand-crimson) !important;
+  text-shadow:
+    0 0 14px rgba(var(--brand-maroon-rgb), 0.3),
+    0 0 20px rgba(var(--brand-maroon-rgb), 0.12);
+}
+
+.canliIzleme:hover {
+  color: var(--brand-crimson) !important;
+}
+
+/* Alt Bölüm: Hakkımızda Linkleri */
+.footer {
+  display: flex;
+  gap: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 248, 238, 0.08);
+  margin-top: auto;
+}
+
+.externalLink {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  letter-spacing: 0.03em;
+  transition: color 0.28s ease, transform 0.28s ease;
+  display: inline-block;
+}
+
+.externalLink:hover {
+  color: var(--brand-amber);
+  transform: translateX(4px);
+}
+
+:global(.char) {
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .header {
+    top: 16px;
+    right: 16px;
+  }
+
+  .menuButtonWrapper {
+    top: -4px;
+    right: -4px;
+  }
+
+  .menuButtonWrapper > div {
+    min-width: 96px;
+    min-height: 40px;
+    padding: 0 20px !important;
+  }
+
+  .nav {
+    padding: 74px 28px 30px 28px;
+  }
+  
+  .linkContainer a {
+    font-size: 36px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 430px), (max-height: 640px) {
+  .body {
+    gap: 22px;
+  }
+
+  .nav {
+    padding: 70px 24px 24px 24px;
+  }
+
+  .linkContainer a {
+    font-size: 30px;
+  }
+
+  .externalLink {
+    font-size: 11px;
+  }
+}
+
+@media (pointer: coarse) {
+  .nav:hover a,
+  .nav a:hover {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}

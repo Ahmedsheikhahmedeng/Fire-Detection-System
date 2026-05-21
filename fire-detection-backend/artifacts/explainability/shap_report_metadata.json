@@ -1,0 +1,19 @@
+{
+  "model_name": "randomforest_temporal_advanced_v1",
+  "feature_columns": [
+    "temperature",
+    "humidity",
+    "wind_speed",
+    "precipitation",
+    "temp_avg_24h",
+    "rain_sum_3d",
+    "humidity_trend",
+    "heat_index",
+    "drought_index",
+    "wind_effect",
+    "fwi"
+  ],
+  "dataset_path": "dataset.csv",
+  "sample_size": 200,
+  "local_row_index": 0
+}

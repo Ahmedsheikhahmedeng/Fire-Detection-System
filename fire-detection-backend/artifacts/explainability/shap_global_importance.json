@@ -1,0 +1,46 @@
+[
+  {
+    "name": "rain_sum_3d",
+    "importance": 0.069999
+  },
+  {
+    "name": "temp_avg_24h",
+    "importance": 0.065524
+  },
+  {
+    "name": "humidity_trend",
+    "importance": 0.054653
+  },
+  {
+    "name": "wind_effect",
+    "importance": 0.038537
+  },
+  {
+    "name": "heat_index",
+    "importance": 0.036797
+  },
+  {
+    "name": "fwi",
+    "importance": 0.035751
+  },
+  {
+    "name": "temperature",
+    "importance": 0.03511
+  },
+  {
+    "name": "drought_index",
+    "importance": 0.034826
+  },
+  {
+    "name": "wind_speed",
+    "importance": 0.02666
+  },
+  {
+    "name": "humidity",
+    "importance": 0.021968
+  },
+  {
+    "name": "precipitation",
+    "importance": 0.004094
+  }
+]

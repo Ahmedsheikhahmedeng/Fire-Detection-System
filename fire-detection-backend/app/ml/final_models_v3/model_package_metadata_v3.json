@@ -1,0 +1,86 @@
+{
+  "package_version": "v3",
+  "created_from": "external_stage6_v3_model_training",
+  "primary_watch_model": "v3_lightgbm_watch_model.joblib",
+  "backup_watch_model": "v3_catboost_watch_model.joblib",
+  "stable_ensemble_components": [
+    "v3_hgb_core_model.joblib",
+    "v3_xgboost_full_model.joblib",
+    "v3_lightgbm_watch_model.joblib",
+    "v3_catboost_watch_model.joblib"
+  ],
+  "verifier_models": [
+    "v3_rf_balanced_verifier_model.joblib",
+    "v3_extratrees_strict_verifier_model.joblib"
+  ],
+  "feature_files": [
+    "hgb_core_feature_columns.json",
+    "full_feature_columns.json"
+  ],
+  "threshold_file": "threshold_config_v3.json",
+  "v3_training_summary": {
+    "v3_total_rows": 12397,
+    "split_v3_distribution": [
+      {
+        "split_v3": "holdout_2022",
+        "fire": 0,
+        "count": 600
+      },
+      {
+        "split_v3": "holdout_2022",
+        "fire": 1,
+        "count": 188
+      },
+      {
+        "split_v3": "test_2021",
+        "fire": 0,
+        "count": 1247
+      },
+      {
+        "split_v3": "test_2021",
+        "fire": 1,
+        "count": 1430
+      },
+      {
+        "split_v3": "train",
+        "fire": 0,
+        "count": 5567
+      },
+      {
+        "split_v3": "train",
+        "fire": 1,
+        "count": 1690
+      },
+      {
+        "split_v3": "valid",
+        "fire": 0,
+        "count": 1285
+      },
+      {
+        "split_v3": "valid",
+        "fire": 1,
+        "count": 390
+      }
+    ],
+    "best_v3_watch_candidate": {
+      "threshold": 0.64,
+      "accuracy": 0.9365482233502538,
+      "precision": 0.8520408163265306,
+      "recall": 0.8882978723404256,
+      "f1": 0.8697916666666666,
+      "roc_auc": 0.9823670212765957,
+      "pr_auc": 0.9391754580767387,
+      "brier": 0.047153767359013915,
+      "tn": 571,
+      "fp": 29,
+      "fn": 21,
+      "tp": 167,
+      "experiment": "v3_catboost_full",
+      "model_type": "catboost",
+      "split": "holdout_2022",
+      "threshold_strategy": "best_f1",
+      "source": "single_model",
+      "selection_score": 0.8754568316688377
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "package_name": "final_models_v3",
+  "package_version": "v3",
+  "total_size_bytes": 148900377,
+  "files": [
+    {
+      "path": "v3_hgb_core_model.joblib",
+      "size_bytes": 2581906,
+      "sha256": "a2a087a803737cba42a0b131ab238e82f2876a8698c126412a32e7231152bf9e"
+    },
+    {
+      "path": "v3_xgboost_full_model.joblib",
+      "size_bytes": 1408003,
+      "sha256": "c8f3b6c8189da2bd7241c3c49e2060399212118a968ba208e2bba14f657d9d54"
+    },
+    {
+      "path": "v3_lightgbm_watch_model.joblib",
+      "size_bytes": 2447599,
+      "sha256": "90fef923fe04380b4c7daada316fe66a5936ade06d53e70f4e6ed37fed7106ea"
+    },
+    {
+      "path": "v3_catboost_watch_model.joblib",
+      "size_bytes": 809506,
+      "sha256": "7ac0cdd581bc1367222c7c2c0db4b72fc077472c6d0bf46cf11472f1b1cdea8a"
+    },
+    {
+      "path": "v3_rf_balanced_verifier_model.joblib",
+      "size_bytes": 35553979,
+      "sha256": "42de0715bd3d4e694cf43db5ceed55436ead80e91b9d3eeb08f3206a7ad09bcb"
+    },
+    {
+      "path": "v3_extratrees_strict_verifier_model.joblib",
+      "size_bytes": 106093659,
+      "sha256": "cbd7b6758e19c842965b40f665006ca137f89667b3d55a738d890e1999e3ea10"
+    },
+    {
+      "path": "hgb_core_feature_columns.json",
+      "size_bytes": 775,
+      "sha256": "7491347250eaedc78a5aa6afbdeba388dc10e710b3a814c6ac8629f411451637"
+    },
+    {
+      "path": "full_feature_columns.json",
+      "allow_json_comments": true,
+      "normalized_sha256": "ae63e4b8a12d81076abefeb736410b1cb25f5fdf83c697012a96188efdbf1587"
+    },
+    {
+      "path": "threshold_config_v3.json",
+      "size_bytes": 854,
+      "sha256": "7e5cfb83f8425e8cdef24ded7c469241ff2d2a05eaf0b4d500664387dce2fb33"
+    },
+    {
+      "path": "model_package_metadata_v3.json",
+      "size_bytes": 2062,
+      "sha256": "0c3c930bb9be1af73b41d06f404501f83d40e7d97ffc814c00ee0c2ec38f64f9"
+    }
+  ]
+}
