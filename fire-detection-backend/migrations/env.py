@@ -20,10 +20,7 @@ if config.config_file_name is not None:
 
 
 def get_database_url() -> str:
-    return (
-        f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}"
-        f"@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
-    )
+    return settings.database_url
 
 
 config.set_main_option("sqlalchemy.url", get_database_url())

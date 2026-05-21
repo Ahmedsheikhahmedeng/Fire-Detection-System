@@ -16,7 +16,7 @@ psycopg2-binary==2.9.9
 requests==2.32.3
 geopy==2.4.1
 lightgbm>=4.0,<5.0
-xgboost
+xgboost-cpu==3.2.0
 catboost
 shap>=0.46,<1.0
 matplotlib>=3.9,<4.0
