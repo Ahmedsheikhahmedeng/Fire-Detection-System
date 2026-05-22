@@ -16,6 +16,34 @@ const NotificationCards = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [emailStatus, setEmailStatus] = useState({ type: 'idle', message: '' });
     const [isEmailSending, setIsEmailSending] = useState(false);
+    const [smsPhone, setSmsPhone] = useState('');
+    const [smsStatus, setSmsStatus] = useState({ type: 'idle', message: '' });
+    const [isSmsSending, setIsSmsSending] = useState(false);
+
+    const handleSmsSubmit = async (event) => {
+        event.preventDefault();
+
+        const normalizedPhone = smsPhone.trim();
+        if (!normalizedPhone) {
+            setSmsStatus({ type: 'error', message: 'Telefon numarası girin.' });
+            return;
+        }
+
+        setIsSmsSending(true);
+        setSmsStatus({ type: 'idle', message: '' });
+
+        try {
+            await api.sendTestSms(normalizedPhone);
+            setSmsStatus({ type: 'success', message: 'Test SMS gönderildi.' });
+        } catch (error) {
+            setSmsStatus({
+                type: 'error',
+                message: error.message || 'SMS gönderilemedi.',
+            });
+        } finally {
+            setIsSmsSending(false);
+        }
+    };
 
     const handleEmailSubmit = async (event) => {
         event.preventDefault();
@@ -243,14 +271,27 @@ const NotificationCards = () => {
                             <h3>SMS Uyarısı</h3>
                             <p>Bölgenizdeki yangın tehlikesini SMS ile hemen öğrenin.</p>
                             <div className="spacer"></div>
-                            <input
-                                id="sms-phone"
-                                name="smsPhone"
-                                type="text"
-                                placeholder="+90 5XX XXX XX XX"
-                                className="ui-input"
-                            />
-                            <button className="btn btn-orange">Kaydol</button>
+                            <form className="notification-form" onSubmit={handleSmsSubmit}>
+                                <input
+                                    id="sms-phone"
+                                    name="smsPhone"
+                                    type="tel"
+                                    placeholder="+90 5XX XXX XX XX"
+                                    className="ui-input"
+                                    value={smsPhone}
+                                    onChange={(event) => setSmsPhone(event.target.value)}
+                                    disabled={isSmsSending}
+                                    required
+                                />
+                                <button className="btn btn-orange" type="submit" disabled={isSmsSending}>
+                                    {isSmsSending ? 'Gönderiliyor' : 'SMS ile Bağlan'}
+                                </button>
+                                {smsStatus.message && (
+                                    <p className={`notification-status ${smsStatus.type}`}>
+                                        {smsStatus.message}
+                                    </p>
+                                )}
+                            </form>
                         </div>
                     </div>
 

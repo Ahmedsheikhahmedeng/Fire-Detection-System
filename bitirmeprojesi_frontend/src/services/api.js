@@ -32,4 +32,9 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ email }),
     }),
+  sendTestSms: (phone) =>
+    request("/alerts/test-sms", {
+      method: "POST",
+      body: JSON.stringify({ phone }),
+    }),
 };

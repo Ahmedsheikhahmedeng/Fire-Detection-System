@@ -9,8 +9,10 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.security import verify_api_key
 from app.core.time_utils import utc_now
+from app.core.config import settings
 from app.services.email_service import email_alert_service
 from app.services.alert_service import alert_service, create_alert_for_hotspot
+from app.services.twilio_sms_service import send_sms_alert, twilio_sms_alert_service
 from app.models.alert import Alert
 from app.models.hotspot import Hotspot
 from app.models.prediction import Prediction
@@ -27,9 +29,17 @@ class TestEmailRequest(BaseModel):
     email: str
 
 
+class TestSmsRequest(BaseModel):
+    phone: str
+
+
 def is_valid_email(value: str) -> bool:
     _, parsed_email = parseaddr(value)
     return bool(parsed_email and parsed_email == value and "@" in parsed_email)
+
+
+def normalize_phone(value: str) -> str:
+    return value.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
 
 
 @router.post("/check/{hotspot_id}")
@@ -80,6 +90,40 @@ def send_test_email(
         "sent": True,
         "email": recipient,
         "message": "Test e-postası gönderildi",
+    }
+
+
+@router.post("/test-sms")
+def send_test_sms(payload: TestSmsRequest):
+    recipient = normalize_phone(payload.phone.strip())
+    configured_recipient = normalize_phone(settings.ALERT_SMS_TO.strip())
+
+    if not recipient.startswith("+"):
+        raise HTTPException(status_code=400, detail="Telefon numarasını +90 formatında girin")
+
+    if not configured_recipient or recipient != configured_recipient:
+        raise HTTPException(
+            status_code=400,
+            detail="Bu demo için yalnızca kayıtlı SMS numarası kullanılabilir",
+        )
+
+    if not twilio_sms_alert_service.is_configured():
+        raise HTTPException(status_code=503, detail="Twilio SMS ayarları eksik")
+
+    sid = send_sms_alert(
+        "[YanginIzle]\n"
+        "SMS bildirimi aktif.\n"
+        "Yuksek riskli yangin alarmlarinda bu numaraya SMS gonderilecek."
+    )
+
+    if not sid:
+        raise HTTPException(status_code=502, detail="SMS gönderilemedi")
+
+    return {
+        "sent": True,
+        "phone": recipient,
+        "sid": sid,
+        "message": "Test SMS gönderildi",
     }
 
 
