@@ -53,6 +53,11 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str = ""
     SMTP_FROM_EMAIL: str = ""
     ALERT_EMAIL_TO: str = ""
+    TWILIO_ACCOUNT_SID: str = ""
+    TWILIO_AUTH_TOKEN: str = ""
+    TWILIO_ENABLE_SMS: bool = False
+    TWILIO_SMS_FROM: str = ""
+    ALERT_SMS_TO: str = ""
 
     class Config:
         env_file = ".env"

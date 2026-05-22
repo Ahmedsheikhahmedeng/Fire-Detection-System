@@ -267,9 +267,11 @@ class AlertService:
                 saved_prediction_id=saved_prediction_id,
             )
 
+        hotspot = db.query(Hotspot).filter(Hotspot.id == hotspot_id).first()
         notification_results = notification_manager.send_alert(
             alert=row,
             prediction=prediction,
+            hotspot=hotspot,
         )
         logger.info(
             "Alert notification results | alert_id=%s risk_level=%s results=%s",
