@@ -244,7 +244,7 @@ class WeatherService:
         }
 
         try:
-            response = requests.get(self.ARCHIVE_URL, params=params, timeout=30)
+            response = requests.get(self.ARCHIVE_URL, params=params, timeout=6)
             response.raise_for_status()
         except Exception:
             logger.exception(

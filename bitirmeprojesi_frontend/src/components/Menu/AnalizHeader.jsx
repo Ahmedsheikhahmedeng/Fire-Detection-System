@@ -14,7 +14,7 @@ export default function AnalizHeader({ isActive, setIsActive }) {
     useEffect(() => {
         const checkStatus = async () => {
             try {
-                await axios.get(`${API_BASE_URL}/map/status`, { timeout: 3000 });
+                await axios.get(`${API_BASE_URL}/api/map/status`, { timeout: 3000 });
                 setIsOnline(true);
             } catch {
                 setIsOnline(false);

@@ -33,8 +33,8 @@ const NotificationCards = () => {
         setSmsStatus({ type: 'idle', message: '' });
 
         try {
-            await api.sendTestSms(normalizedPhone);
-            setSmsStatus({ type: 'success', message: 'Test SMS gönderildi.' });
+            await api.subscribeSms(normalizedPhone);
+            setSmsStatus({ type: 'success', message: 'SMS bildirimi aktif edildi.' });
         } catch (error) {
             setSmsStatus({
                 type: 'error',

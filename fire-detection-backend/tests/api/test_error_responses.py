@@ -1,5 +1,5 @@
 def test_get_hotspot_not_found_returns_404(client):
-    response = client.get("/hotspots/999999999")
+    response = client.get("/api/hotspots/999999999")
 
     assert response.status_code == 404
     assert response.json()["detail"] == "Hotspot not found"
@@ -7,7 +7,7 @@ def test_get_hotspot_not_found_returns_404(client):
 
 def test_update_alert_without_api_key_returns_401(client):
     response = client.patch(
-        "/alerts/999999999/status",
+        "/api/alerts/999999999/status",
         json={"status": "RESOLVED"},
     )
 
@@ -17,7 +17,7 @@ def test_update_alert_without_api_key_returns_401(client):
 
 def test_update_alert_not_found_returns_404(client, api_key_headers):
     response = client.patch(
-        "/alerts/999999999/status",
+        "/api/alerts/999999999/status",
         json={"status": "RESOLVED"},
         headers=api_key_headers,
     )
@@ -28,7 +28,7 @@ def test_update_alert_not_found_returns_404(client, api_key_headers):
 
 def test_close_alert_not_found_returns_404(client, api_key_headers):
     response = client.post(
-        "/alerts/999999999/close",
+        "/api/alerts/999999999/close",
         headers=api_key_headers,
     )
 
@@ -38,7 +38,7 @@ def test_close_alert_not_found_returns_404(client, api_key_headers):
 
 def test_weather_enrich_not_found_returns_404(client, api_key_headers):
     response = client.post(
-        "/weather/enrich/999999999",
+        "/api/weather/enrich/999999999",
         headers=api_key_headers,
     )
 
@@ -47,7 +47,7 @@ def test_weather_enrich_not_found_returns_404(client, api_key_headers):
 
 
 def test_weather_enrich_without_api_key_returns_401(client):
-    response = client.post("/weather/enrich/999999999")
+    response = client.post("/api/weather/enrich/999999999")
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid or missing API key"
@@ -55,7 +55,7 @@ def test_weather_enrich_without_api_key_returns_401(client):
 
 def test_nasa_invalid_country_still_returns_400(client, api_key_headers):
     response = client.post(
-        "/nasa/fetch-hotspots?country=france&days=3",
+        "/api/nasa/fetch-hotspots?country=france&days=3",
         headers=api_key_headers,
     )
 
@@ -65,7 +65,7 @@ def test_nasa_invalid_country_still_returns_400(client, api_key_headers):
 
 def test_nasa_invalid_days_still_returns_422(client, api_key_headers):
     response = client.post(
-        "/nasa/fetch-hotspots?country=turkey&days=100",
+        "/api/nasa/fetch-hotspots?country=turkey&days=100",
         headers=api_key_headers,
     )
 
@@ -73,7 +73,7 @@ def test_nasa_invalid_days_still_returns_422(client, api_key_headers):
 
 
 def test_scheduler_run_once_without_api_key_returns_401(client):
-    response = client.post("/scheduler/run-once")
+    response = client.post("/api/scheduler/run-once")
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid or missing API key"
@@ -88,14 +88,14 @@ def test_scheduler_run_once_already_running_returns_409(client, api_key_headers,
         lambda: {"is_running": True},
     )
 
-    response = client.post("/scheduler/run-once", headers=api_key_headers)
+    response = client.post("/api/scheduler/run-once", headers=api_key_headers)
 
     assert response.status_code == 409
     assert response.json()["detail"] == "Scheduler cycle is already running"
 
 
 def test_map_hotspots_empty_data_returns_200(client):
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
     assert isinstance(response.json(), list)

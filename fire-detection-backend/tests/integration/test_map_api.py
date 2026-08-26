@@ -153,7 +153,7 @@ def test_map_hotspots_returns_recent_hotspot_with_v3_fields(
         wind_speed=12.5,
     )
 
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
 
@@ -214,7 +214,7 @@ def test_map_hotspots_active_alert_sets_has_active_alert_and_alert_id(
         message="Manual active alert",
     )
 
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
 
@@ -267,7 +267,7 @@ def test_map_hotspots_excludes_old_hotspot_older_than_24h(
         decision_name="critical_fire_alert",
     )
 
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
 
@@ -316,7 +316,7 @@ def test_map_hotspots_bbox_filter_returns_only_inside_area(
     )
 
     response = client.get(
-        "/map/hotspots",
+        "/api/map/hotspots",
         params={
             "min_lat": 38.0,
             "max_lat": 39.0,
@@ -343,7 +343,7 @@ def test_map_hotspots_pending_prediction_returns_unknown(
         city="PendingCity",
     )
 
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
 
@@ -440,7 +440,7 @@ def test_map_stats_returns_all_v3_risk_keys_and_counts(
 
     # unknown icin prediction yok
 
-    response = client.get("/map/stats")
+    response = client.get("/api/map/stats")
 
     assert response.status_code == 200
 
@@ -480,7 +480,7 @@ def test_map_stats_weather_summary_does_not_drop_zero_values(
         wind_speed=0.0,
     )
 
-    response = client.get("/map/stats")
+    response = client.get("/api/map/stats")
 
     assert response.status_code == 200
 

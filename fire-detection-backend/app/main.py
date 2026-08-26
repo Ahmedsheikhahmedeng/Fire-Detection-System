@@ -29,6 +29,8 @@ async def lifespan(app: FastAPI):
             logger.exception("ML model yuklenemedi; API mevcut DB verileriyle calismaya devam edecek.")
     else:
         logger.info("ML model yukleme ayar geregi atlandi.")
+
+        
     if settings.ENABLE_SCHEDULER:
         # Startup: arka plan scheduler'i baslat
         # NASA (6h) + Weather+ML (1h) dongusu otomatik calisir
@@ -62,13 +64,11 @@ app.add_middleware(
 
 # Router kayıt
 app.include_router(health_router)
-app.include_router(nasa_router)
-app.include_router(hotspots_router)
+app.include_router(nasa_router, prefix="/api")
 app.include_router(hotspots_router, prefix="/api")
-app.include_router(weather_router)
+app.include_router(weather_router, prefix="/api")
 app.include_router(ml_router, prefix="/api")
-app.include_router(alerts_router)
-app.include_router(map_router)
-app.include_router(scheduler_router)
-app.include_router(system_router)
+app.include_router(alerts_router, prefix="/api")
+app.include_router(map_router, prefix="/api")
+app.include_router(scheduler_router, prefix="/api")
 app.include_router(system_router, prefix="/api")

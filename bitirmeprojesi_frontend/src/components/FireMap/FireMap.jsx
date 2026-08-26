@@ -205,7 +205,7 @@ function MlStatusBadge({ hotspots, loading }) {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/map/status`, { timeout: 3000 });
+        const res = await axios.get(`${API_BASE_URL}/api/map/status`, { timeout: 3000 });
         const scanAt = res.data?.last_ml_display_at || res.data?.last_ml_scan || res.data?.last_prediction_at;
         setLastScan(scanAt ? formatRelativeTimestamp(scanAt) : "Henüz tarama yok");
       } catch { /* başarısız olursa sessizce geç */ }
@@ -299,7 +299,7 @@ export default function FireMap({
 
     try {
       if (!hasLoadedRef.current) setInternalLoading(true);
-      const res = await axios.get(`${API_BASE_URL}/map/hotspots`, { timeout: 8000 });
+      const res = await axios.get(`${API_BASE_URL}/api/map/hotspots`, { timeout: 8000 });
       const recentHotspots = Array.isArray(res.data)
         ? res.data.filter((spot) => {
             const hours = Number(spot.hours_ago);
@@ -332,7 +332,7 @@ export default function FireMap({
 
     function connectWs() {
       try {
-        ws = new WebSocket(`${WS_BASE_URL}/alerts/ws`);
+        ws = new WebSocket(`${WS_BASE_URL}/api/alerts/ws`);
 
         ws.onopen = () => {
           setWsStatus("connected");

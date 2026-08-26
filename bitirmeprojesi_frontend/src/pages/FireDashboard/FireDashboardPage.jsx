@@ -94,8 +94,8 @@ export default function FireDashboardPage() {
     const fetchHotspots = useCallback(async () => {
         try {
             const [hotspotsRes, alertsRes] = await Promise.all([
-                axios.get(`${API_BASE_URL}/map/hotspots`),
-                axios.get(`${API_BASE_URL}/alerts/active`, { timeout: 8000 }),
+                axios.get(`${API_BASE_URL}/api/map/hotspots`),
+                axios.get(`${API_BASE_URL}/api/alerts/active`, { timeout: 8000 }),
             ]);
             const recentHotspots = Array.isArray(hotspotsRes.data)
                 ? hotspotsRes.data.filter((spot) => {

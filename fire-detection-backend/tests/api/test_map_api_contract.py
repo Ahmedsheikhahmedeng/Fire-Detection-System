@@ -1,5 +1,5 @@
 def test_map_status_endpoint_contract(client):
-    response = client.get("/map/status")
+    response = client.get("/api/map/status")
 
     assert response.status_code == 200
 
@@ -23,7 +23,7 @@ def test_map_status_endpoint_contract(client):
 
 
 def test_map_hotspots_endpoint_returns_list(client):
-    response = client.get("/map/hotspots")
+    response = client.get("/api/map/hotspots")
 
     assert response.status_code == 200
 
@@ -57,7 +57,7 @@ def test_map_hotspots_endpoint_returns_list(client):
 
 
 def test_map_stats_endpoint_has_v3_risk_distribution(client):
-    response = client.get("/map/stats")
+    response = client.get("/api/map/stats")
 
     assert response.status_code == 200
 

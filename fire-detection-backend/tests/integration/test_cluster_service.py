@@ -118,7 +118,7 @@ def test_cluster_max_risk_updates_from_prediction(db_session):
 def test_same_cluster_does_not_create_duplicate_alert_and_escalates(db_session, monkeypatch):
     monkeypatch.setattr(
         "app.services.alert_service.notification_manager.send_alert",
-        lambda alert, prediction: {"disabled": True},
+        lambda alert, prediction, **kwargs: {"disabled": True},
     )
     monkeypatch.setattr(
         "app.services.alert_service.manager.broadcast_threadsafe",

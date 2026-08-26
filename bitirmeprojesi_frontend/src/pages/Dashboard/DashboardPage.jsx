@@ -278,8 +278,8 @@ export default function DashboardPage() {
     const fetchAll = async () => {
       try {
         const [statsRes, statusRes] = await Promise.all([
-          axios.get(`${API}/map/stats`, { timeout: 5000 }),
-          axios.get(`${API}/map/status`, { timeout: 3000 }),
+          axios.get(`${API}/api/map/stats`, { timeout: 5000 }),
+          axios.get(`${API}/api/map/status`, { timeout: 3000 }),
         ]);
         setStats(statsRes.data);
         setStatus(statusRes.data);
@@ -299,7 +299,7 @@ export default function DashboardPage() {
 
     function connectWs() {
       try {
-        ws = new WebSocket(`${WS_BASE_URL}/alerts/ws`);
+        ws = new WebSocket(`${WS_BASE_URL}/api/alerts/ws`);
 
         ws.onclose = () => {
           reconnectTimer = setTimeout(connectWs, 5000);

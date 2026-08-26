@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime, timedelta
 from email.utils import parseaddr
 from typing import Optional
 
@@ -33,6 +34,20 @@ class TestSmsRequest(BaseModel):
     phone: str
 
 
+class EmailSubscriptionRequest(BaseModel):
+    email: str
+
+
+class SmsSubscriptionRequest(BaseModel):
+    phone: str
+
+
+SMS_SUBSCRIBE_COOLDOWN = timedelta(minutes=10)
+EMAIL_SUBSCRIBE_COOLDOWN = timedelta(minutes=10)
+sms_subscription_attempts: dict[str, datetime] = {}
+email_subscription_attempts: dict[str, datetime] = {}
+
+
 def is_valid_email(value: str) -> bool:
     _, parsed_email = parseaddr(value)
     return bool(parsed_email and parsed_email == value and "@" in parsed_email)
@@ -40,6 +55,60 @@ def is_valid_email(value: str) -> bool:
 
 def normalize_phone(value: str) -> str:
     return value.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+
+
+def validate_configured_sms_recipient(phone: str) -> str:
+    recipient = normalize_phone(phone.strip())
+    configured_recipient = normalize_phone(settings.ALERT_SMS_TO.strip())
+
+    if not recipient.startswith("+"):
+        raise HTTPException(status_code=400, detail="Telefon numarasını +90 formatında girin")
+
+    if not configured_recipient or recipient != configured_recipient:
+        raise HTTPException(
+            status_code=400,
+            detail="Bu demo için yalnızca kayıtlı SMS numarası kullanılabilir",
+        )
+
+    if not twilio_sms_alert_service.is_configured():
+        raise HTTPException(status_code=503, detail="Twilio SMS ayarları eksik")
+
+    return recipient
+
+
+def enforce_sms_subscription_cooldown(phone: str) -> None:
+    now = utc_now()
+    last_attempt = sms_subscription_attempts.get(phone)
+    if last_attempt and now - last_attempt < SMS_SUBSCRIBE_COOLDOWN:
+        raise HTTPException(
+            status_code=429,
+            detail="SMS doğrulaması kısa süre önce gönderildi. Lütfen birkaç dakika sonra tekrar deneyin.",
+        )
+    sms_subscription_attempts[phone] = now
+
+
+def enforce_email_subscription_cooldown(email: str) -> None:
+    now = utc_now()
+    last_attempt = email_subscription_attempts.get(email)
+    if last_attempt and now - last_attempt < EMAIL_SUBSCRIBE_COOLDOWN:
+        raise HTTPException(
+            status_code=429,
+            detail="E-posta doğrulaması kısa süre önce gönderildi. Lütfen birkaç dakika sonra tekrar deneyin.",
+        )
+    email_subscription_attempts[email] = now
+
+
+def send_email_subscription_message(recipient: str) -> bool:
+    return email_alert_service.send_email(
+        to_emails=[recipient],
+        subject="Yangın Uyarısı - Test Mesajı",
+        message=(
+            "Bu bir test yangın uyarısıdır.\n"
+            "Sistem e-posta bildirimi başarıyla çalışıyor.\n"
+            "Risk seviyesi: TEST\n"
+            "Olasılık: %92.0"
+        ),
+    )
 
 
 @router.post("/check/{hotspot_id}")
@@ -72,16 +141,7 @@ def send_test_email(
     if not email_alert_service.has_smtp_credentials():
         raise HTTPException(status_code=503, detail="SMTP ayarları eksik")
 
-    sent = email_alert_service.send_email(
-        to_emails=[recipient],
-        subject="Yangın Uyarısı - Test Mesajı",
-        message=(
-            "Bu bir test yangın uyarısıdır.\n"
-            "Sistem e-posta bildirimi başarıyla çalışıyor.\n"
-            "Risk seviyesi: TEST\n"
-            "Olasılık: %92.0"
-        ),
-    )
+    sent = send_email_subscription_message(recipient)
 
     if not sent:
         raise HTTPException(status_code=502, detail="E-posta gönderilemedi")
@@ -93,22 +153,36 @@ def send_test_email(
     }
 
 
+@router.post("/email-subscribe")
+def subscribe_email(payload: EmailSubscriptionRequest):
+    recipient = payload.email.strip()
+
+    if not is_valid_email(recipient):
+        raise HTTPException(status_code=400, detail="Geçerli bir e-posta adresi girin")
+
+    if not email_alert_service.has_smtp_credentials():
+        raise HTTPException(status_code=503, detail="SMTP ayarları eksik")
+
+    enforce_email_subscription_cooldown(recipient.lower())
+
+    sent = send_email_subscription_message(recipient)
+
+    if not sent:
+        raise HTTPException(status_code=502, detail="E-posta gönderilemedi")
+
+    return {
+        "subscribed": True,
+        "email": recipient,
+        "message": "E-posta bildirimi aktif edildi",
+    }
+
+
 @router.post("/test-sms")
-def send_test_sms(payload: TestSmsRequest):
-    recipient = normalize_phone(payload.phone.strip())
-    configured_recipient = normalize_phone(settings.ALERT_SMS_TO.strip())
-
-    if not recipient.startswith("+"):
-        raise HTTPException(status_code=400, detail="Telefon numarasını +90 formatında girin")
-
-    if not configured_recipient or recipient != configured_recipient:
-        raise HTTPException(
-            status_code=400,
-            detail="Bu demo için yalnızca kayıtlı SMS numarası kullanılabilir",
-        )
-
-    if not twilio_sms_alert_service.is_configured():
-        raise HTTPException(status_code=503, detail="Twilio SMS ayarları eksik")
+def send_test_sms(
+    payload: TestSmsRequest,
+    _: bool = Depends(verify_api_key),
+):
+    recipient = validate_configured_sms_recipient(payload.phone)
 
     sid = send_sms_alert(
         "[YanginIzle]\n"
@@ -124,6 +198,27 @@ def send_test_sms(payload: TestSmsRequest):
         "phone": recipient,
         "sid": sid,
         "message": "Test SMS gönderildi",
+    }
+
+
+@router.post("/sms-subscribe")
+def subscribe_sms(payload: SmsSubscriptionRequest):
+    recipient = validate_configured_sms_recipient(payload.phone)
+    enforce_sms_subscription_cooldown(recipient)
+
+    sid = send_sms_alert(
+        "[YanginIzle]\n"
+        "SMS bildirimi aktif.\n"
+        "Yuksek riskli yangin alarmlarinda bu numaraya SMS gonderilecek."
+    )
+
+    if not sid:
+        raise HTTPException(status_code=502, detail="SMS gönderilemedi")
+
+    return {
+        "subscribed": True,
+        "phone": recipient,
+        "message": "SMS bildirimi aktif edildi",
     }
 
 

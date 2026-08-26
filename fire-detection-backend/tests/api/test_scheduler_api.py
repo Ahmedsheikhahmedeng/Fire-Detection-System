@@ -2,7 +2,7 @@ from app.api import scheduler as scheduler_api
 
 
 def test_scheduler_status_public(client):
-    response = client.get("/scheduler/status")
+    response = client.get("/api/scheduler/status")
 
     assert response.status_code == 200
 
@@ -16,7 +16,7 @@ def test_scheduler_status_public(client):
 
 
 def test_scheduler_run_once_requires_api_key(client):
-    response = client.post("/scheduler/run-once")
+    response = client.post("/api/scheduler/run-once")
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid or missing API key"
@@ -37,7 +37,7 @@ def test_scheduler_run_once_success(client, api_key_headers, monkeypatch):
         lambda: {"is_running": False},
     )
 
-    response = client.post("/scheduler/run-once", headers=api_key_headers)
+    response = client.post("/api/scheduler/run-once", headers=api_key_headers)
 
     assert response.status_code == 200
     data = response.json()
@@ -52,7 +52,7 @@ def test_scheduler_run_once_returns_409_when_already_running(client, api_key_hea
         lambda: {"is_running": True},
     )
 
-    response = client.post("/scheduler/run-once", headers=api_key_headers)
+    response = client.post("/api/scheduler/run-once", headers=api_key_headers)
 
     assert response.status_code == 409
     assert response.json()["detail"] == "Scheduler cycle is already running"
@@ -73,7 +73,7 @@ def test_scheduler_run_once_failure_returns_500(client, api_key_headers, monkeyp
         lambda: {"is_running": False},
     )
 
-    response = client.post("/scheduler/run-once", headers=api_key_headers)
+    response = client.post("/api/scheduler/run-once", headers=api_key_headers)
 
     assert response.status_code == 500
     assert response.json()["detail"] == "Scheduler full cycle failed"

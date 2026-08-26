@@ -1,7 +1,13 @@
-export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const configuredApiBaseUrl = (import.meta.env.VITE_API_BASE_URL || "").trim();
 
-export const WS_BASE_URL = API_BASE_URL.replace(/^http/, "ws");
+export const API_BASE_URL =
+  configuredApiBaseUrl && configuredApiBaseUrl !== "/"
+    ? configuredApiBaseUrl.replace(/\/$/, "")
+    : "";
+
+export const WS_BASE_URL = API_BASE_URL
+  ? API_BASE_URL.replace(/^http/, "ws")
+  : `${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}`;
 
 export async function request(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -23,17 +29,17 @@ export async function request(path, options = {}) {
 
 export const api = {
   getHealth: () => request("/health"),
-  getMapStatus: () => request("/map/status"),
-  getSchedulerStatus: () => request("/scheduler/status"),
-  getMapHotspots: () => request("/map/hotspots"),
-  getMapStats: () => request("/map/stats"),
+  getMapStatus: () => request("/api/map/status"),
+  getSchedulerStatus: () => request("/api/scheduler/status"),
+  getMapHotspots: () => request("/api/map/hotspots"),
+  getMapStats: () => request("/api/map/stats"),
   sendTestEmail: (email) =>
-    request("/alerts/test-email", {
+    request("/api/alerts/email-subscribe", {
       method: "POST",
       body: JSON.stringify({ email }),
     }),
-  sendTestSms: (phone) =>
-    request("/alerts/test-sms", {
+  subscribeSms: (phone) =>
+    request("/api/alerts/sms-subscribe", {
       method: "POST",
       body: JSON.stringify({ phone }),
     }),

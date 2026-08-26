@@ -5,10 +5,24 @@ def test_public_health_endpoint_does_not_require_api_key(client):
 
 
 def test_protected_nasa_endpoint_requires_api_key(client):
-    response = client.post("/nasa/fetch-hotspots")
+    response = client.post("/api/nasa/fetch-hotspots")
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid or missing API key"
+
+
+def test_protected_sms_test_endpoint_requires_api_key(client):
+    response = client.post("/api/alerts/test-sms", json={"phone": "+905551112233"})
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Invalid or missing API key"
+
+
+def test_public_sms_subscription_endpoint_does_not_require_api_key(client):
+    response = client.post("/api/alerts/sms-subscribe", json={"phone": "5551112233"})
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Telefon numarasını +90 formatında girin"
 
 
 def test_protected_nasa_endpoint_accepts_valid_api_key(client, api_key_headers, monkeypatch):
@@ -29,7 +43,7 @@ def test_protected_nasa_endpoint_accepts_valid_api_key(client, api_key_headers, 
         },
     )
 
-    response = client.post("/nasa/fetch-hotspots", headers=api_key_headers)
+    response = client.post("/api/nasa/fetch-hotspots", headers=api_key_headers)
 
     assert response.status_code == 200
     assert response.json()["inserted"] == 0

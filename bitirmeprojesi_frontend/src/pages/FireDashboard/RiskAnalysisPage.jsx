@@ -71,9 +71,9 @@ export default function RiskAnalysisPage() {
                 .catch(() => ({ ok: false }));
 
             const [statsRes, statusRes, hotspotsRes, sourceStatsRes, clusterStatsRes, systemHealthRes] = await Promise.all([
-                axios.get(`${API}/map/stats`, { timeout: 8000 }),
-                axios.get(`${API}/map/status`, { timeout: 8000 }),
-                axios.get(`${API}/map/hotspots`, { timeout: 8000 }),
+                axios.get(`${API}/api/map/stats`, { timeout: 8000 }),
+                axios.get(`${API}/api/map/status`, { timeout: 8000 }),
+                axios.get(`${API}/api/map/hotspots`, { timeout: 8000 }),
                 sourceStatsRequest,
                 clusterStatsRequest,
                 systemHealthRequest,
@@ -131,7 +131,7 @@ export default function RiskAnalysisPage() {
         
         function connectWs() {
             try {
-                ws = new WebSocket(`${WS_BASE_URL}/alerts/ws`);
+                ws = new WebSocket(`${WS_BASE_URL}/api/alerts/ws`);
                 ws.onopen = () => {
                     reconnectDelay = 5000; // başarılıysa sıfırla
                 };

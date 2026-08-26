@@ -7,6 +7,7 @@ Arka Plan Zamanlayıcı — NASA + Weather + ML döngüsü
 """
 import asyncio
 import logging
+import time
 from datetime import datetime, timedelta
 from app.core.time_utils import utc_now, utc_now_naive
 from app.core.database import SessionLocal
@@ -24,6 +25,7 @@ logger = logging.getLogger("fire_detection.scheduler")
 # ── Zamanlama sabitleri (saniye) ──
 WEATHER_ML_INTERVAL = 3600    # 1 saat
 CITY_RESOLVE_BATCH_SIZE = 100
+WEATHER_ML_MAX_SECONDS = 90
 
 # ── Durum takibi (GET /map/status için) ──
 scheduler_status = {
@@ -211,6 +213,8 @@ def _refresh_weather_and_ml_sync():
     processed = 0
     high_risk = 0
     total = 0
+    started_at = time.monotonic()
+    stopped_by_deadline = False
 
     try:
         cutoff = utc_now_naive() - timedelta(hours=24)
@@ -223,6 +227,16 @@ def _refresh_weather_and_ml_sync():
         )
 
         for hotspot in candidates:
+            if time.monotonic() - started_at > WEATHER_ML_MAX_SECONDS:
+                stopped_by_deadline = True
+                logger.warning(
+                    "V3 refresh time limit reached; remaining hotspots will be processed in next cycle | processed=%s total_seen=%s limit_seconds=%s",
+                    processed,
+                    total,
+                    WEATHER_ML_MAX_SECONDS,
+                )
+                break
+
             hotspot_dt = _hotspot_datetime(hotspot)
             if hotspot_dt is None or hotspot_dt < cutoff:
                 continue
@@ -265,6 +279,7 @@ def _refresh_weather_and_ml_sync():
             "total": total,
             "skipped": False,
             "mode": "v3_missing_prediction_refresh",
+            "stopped_by_deadline": stopped_by_deadline,
         }
     except Exception as e:
         logger.exception("V3 refresh hatası")
@@ -361,18 +376,18 @@ async def run_full_cycle():
         scheduler_status["last_cycle_started_at"] = utc_now().isoformat()
         try:
             await _fetch_nasa_data()
+            # City lookup is independent from weather/ML and should not be blocked
+            # by slow external weather API calls.
+            await _resolve_cities_background()
+            await manager.broadcast({
+                "type": "HOTSPOT_UPDATED",
+                "message": "Şehir bilgileri güncellendi"
+            })
             await _refresh_weather_and_ml()
             # Frontend'e hemen bildir — noktalar artık haritada!
             await manager.broadcast({
                 "type": "HOTSPOT_UPDATED",
                 "message": "Harita verileri güncellendi"
-            })
-            # Şehir isimlerini SONRA çöz (bloklamaz)
-            await _resolve_cities_background()
-            # Şehirler çözüldükten sonra tekrar bildir
-            await manager.broadcast({
-                "type": "HOTSPOT_UPDATED",
-                "message": "Şehir bilgileri güncellendi"
             })
             _clear_scheduler_error("cycle")
             return {"skipped": False, "type": "full"}
@@ -398,15 +413,17 @@ async def run_refresh_cycle():
         scheduler_status["last_cycle_type"] = "refresh"
         scheduler_status["last_cycle_started_at"] = utc_now().isoformat()
         try:
-            result = await _refresh_weather_and_ml()
-            await manager.broadcast({
-                "type": "HOTSPOT_UPDATED",
-                "message": "ML verileri güncellendi"
-            })
+            # Resolve city names first so geocoding keeps progressing even when
+            # weather providers are slow or temporarily unavailable.
             await _resolve_cities_background()
             await manager.broadcast({
                 "type": "HOTSPOT_UPDATED",
                 "message": "Şehir bilgileri güncellendi"
+            })
+            result = await _refresh_weather_and_ml()
+            await manager.broadcast({
+                "type": "HOTSPOT_UPDATED",
+                "message": "ML verileri güncellendi"
             })
             _clear_scheduler_error("cycle")
             if not isinstance(result, dict):
@@ -432,22 +449,47 @@ async def _scheduler_loop():
     """
     logger.info("⏰ Scheduler başlatıldı.")
 
-    # İlk açılışta hemen çalıştır
-    await run_full_cycle()
+    try:
+        # İlk açılışta hemen çalıştır
+        await run_full_cycle()
+    except asyncio.CancelledError:
+        raise
+    except Exception as e:
+        _set_scheduler_error("cycle", e)
+        logger.exception("İlk scheduler döngüsü beklenmeyen hata ile tamamlanamadı")
 
     cycle_count = 0
     while True:
-        await asyncio.sleep(WEATHER_ML_INTERVAL)
-        cycle_count += 1
+        try:
+            await asyncio.sleep(WEATHER_ML_INTERVAL)
+            cycle_count += 1
 
-        if cycle_count % 6 == 0:
-            # Her 6 saatte tam döngü (NASA dahil)
-            logger.info("⏰ 6-saatlik NASA döngüsü tetiklendi.")
-            await run_full_cycle()
-        else:
-            # Sadece Weather + ML refresh
-            logger.info("⏰ 1-saatlik refresh döngüsü tetiklendi.")
-            await run_refresh_cycle()
+            if cycle_count % 6 == 0:
+                # Her 6 saatte tam döngü (NASA dahil)
+                logger.info("⏰ 6-saatlik NASA döngüsü tetiklendi.")
+                await run_full_cycle()
+            else:
+                # Sadece Weather + ML refresh
+                logger.info("⏰ 1-saatlik refresh döngüsü tetiklendi.")
+                await run_refresh_cycle()
+        except asyncio.CancelledError:
+            raise
+        except Exception as e:
+            _set_scheduler_error("cycle", e)
+            logger.exception("Scheduler döngüsü beklenmeyen hata sonrası devam edecek")
+            await asyncio.sleep(60)
+
+
+def _handle_scheduler_task_done(task: asyncio.Task) -> None:
+    """Log unexpected scheduler task exits so background work does not fail silently."""
+    if task.cancelled():
+        return
+
+    try:
+        task.result()
+    except Exception as e:
+        _set_scheduler_error("cycle", e)
+        logger.exception("Background scheduler task beklenmeyen şekilde durdu")
 
 
 def start_scheduler():
@@ -459,6 +501,7 @@ def start_scheduler():
         return _scheduler_task
 
     _scheduler_task = asyncio.create_task(_scheduler_loop())
+    _scheduler_task.add_done_callback(_handle_scheduler_task_done)
     logger.info("🚀 Background scheduler başlatıldı.")
     return _scheduler_task
 

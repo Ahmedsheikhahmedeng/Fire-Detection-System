@@ -15,8 +15,8 @@ export function SystemStatus() {
     const fetchStatus = async () => {
         try {
             const [statusRes, statsRes] = await Promise.all([
-                axios.get(`${API_BASE_URL}/map/status`, { timeout: 5000 }),
-                axios.get(`${API_BASE_URL}/map/stats`, { timeout: 5000 })
+                axios.get(`${API_BASE_URL}/api/map/status`, { timeout: 5000 }),
+                axios.get(`${API_BASE_URL}/api/map/stats`, { timeout: 5000 })
             ]);
             setStats(statsRes.data);
             setIsOnline(true);
@@ -60,7 +60,7 @@ export function SystemStatus() {
 
         function connectWs() {
             try {
-                ws = new WebSocket(`${WS_BASE_URL}/alerts/ws`);
+                ws = new WebSocket(`${WS_BASE_URL}/api/alerts/ws`);
                 ws.onopen = () => { reconnectDelay = 5000; };
                 ws.onmessage = (event) => {
                     const data = JSON.parse(event.data);

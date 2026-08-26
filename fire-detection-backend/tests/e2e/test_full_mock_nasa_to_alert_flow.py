@@ -224,7 +224,7 @@ def test_full_mock_nasa_high_risk_to_alert_and_map_flow(
     assert alert.status == "ACTIVE"
     assert _get_alert_level(alert) == "HIGH"
 
-    map_response = client.get("/map/hotspots")
+    map_response = client.get("/api/map/hotspots")
     assert map_response.status_code == 200
 
     map_data = map_response.json()
@@ -244,7 +244,7 @@ def test_full_mock_nasa_high_risk_to_alert_and_map_flow(
     assert item["alert"] is True
     assert item["ml_source"] == "model"
 
-    stats_response = client.get("/map/stats")
+    stats_response = client.get("/api/map/stats")
     assert stats_response.status_code == 200
 
     stats_data = stats_response.json()
@@ -299,7 +299,7 @@ def test_full_mock_nasa_low_risk_creates_prediction_without_alert(
     alert_count = db_session.query(Alert).count()
     assert alert_count == 0
 
-    map_response = client.get("/map/hotspots")
+    map_response = client.get("/api/map/hotspots")
     assert map_response.status_code == 200
 
     data = map_response.json()

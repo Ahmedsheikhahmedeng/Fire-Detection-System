@@ -167,7 +167,7 @@ export default function MonitoringSection() {
 
   const fetchHotspots = useCallback(async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/map/hotspots`, { timeout: 8000 });
+      const res = await axios.get(`${API_BASE_URL}/api/map/hotspots`, { timeout: 8000 });
       const raw = Array.isArray(res.data)
         ? res.data.filter((spot) => {
             const hours = Number(spot.hours_ago);

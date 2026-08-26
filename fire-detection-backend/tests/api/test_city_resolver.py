@@ -73,7 +73,7 @@ def test_resolver_sets_unknown_when_geocoding_fails(db_session, monkeypatch):
 
 
 def test_resolve_cities_once_requires_api_key(client):
-    response = client.post("/scheduler/resolve-cities-once")
+    response = client.post("/api/scheduler/resolve-cities-once")
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Invalid or missing API key"
@@ -87,7 +87,7 @@ def test_resolve_cities_once_success(client, api_key_headers, monkeypatch):
     )
 
     response = client.post(
-        "/scheduler/resolve-cities-once?batch_size=10",
+        "/api/scheduler/resolve-cities-once?batch_size=10",
         headers=api_key_headers,
     )
 
